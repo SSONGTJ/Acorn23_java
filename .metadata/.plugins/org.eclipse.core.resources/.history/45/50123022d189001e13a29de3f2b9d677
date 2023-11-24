@@ -1,0 +1,5 @@
+package test.guest.dto;
+
+public class GuestDto {
+
+}

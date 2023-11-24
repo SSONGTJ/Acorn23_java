@@ -1,0 +1,14 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>/dept/list.jsp</title>
+</head>
+<body>
+	<div class="container">
+		<h1>부서목록 입니다.</h1>
+	</div>
+</body>
+</html>

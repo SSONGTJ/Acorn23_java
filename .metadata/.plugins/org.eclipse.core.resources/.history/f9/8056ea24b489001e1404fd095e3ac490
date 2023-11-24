@@ -1,0 +1,26 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%
+	//post 방식 전송했을 때 한글 안깨지도록
+	request.setCharacterEncoding("utf-8");
+
+	//updateform 에서 전송한 값들을 받아오기
+	int deptno = Integer.parseInt(request.getParameter("deptno"));
+	String dname = request.getParameter("dname");
+	String loc = request.getParameter("loc");
+	
+	// 받은 값을 dto 에 저장
+	DeptDto dto = new DeptDto();
+	
+	// 받은 값을 dao에 있는 update 메소드로 넘긴다.
+%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>/dept/update.jsp</title>
+</head>
+<body>
+
+</body>
+</html>

@@ -1,0 +1,17 @@
+package test.guest.dto;
+
+public class GuestDto {
+	private int num;
+	private String writer;
+	private String content;
+	private String pwd;
+	private String regdate;
+	
+	public GuestDto() {}
+	
+	public GuestDto (int num, String writer, String content, String pwd, String regdate) {
+		
+	}
+	
+
+}

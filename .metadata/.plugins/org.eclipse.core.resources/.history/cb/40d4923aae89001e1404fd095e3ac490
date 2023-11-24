@@ -1,0 +1,18 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%
+	int detpno=Integer.parseInt(request.getParameter("deptno"));
+	String dname=request.getParameter("dname");
+	String loc=request.getParameter("loc");
+	
+%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>/dept/insert.jsp</title>
+</head>
+<body>
+
+</body>
+</html>

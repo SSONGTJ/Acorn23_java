@@ -1,0 +1,42 @@
+<%@page import="test.guest.dao.GuestDao"%>
+<%@page import="test.guest.dto.GuestDto"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%
+	int num = Integer.parseInt(request.getParameter("num"));
+	String pwd = request.getParameter("pwd");
+	
+	GuestDto dto = new GuestDto();
+	dto.setNum(num);
+	dto.setPwd(pwd);
+	
+	GuestDto list = GuestDao.getInstance().getData(num);
+	
+		if (pwd.equals(list.getPwd())){
+			boolean isSuccess = GuestDao.getInstance().delete(dto);
+		} 
+	
+%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>/guest/delete.jsp</title>
+</head>
+<body>
+	<div class="container">
+		<h1>방명록 삭제 결과</h1>
+		<%if (isSuccess){ %>
+			<script>
+				alert('삭제되었습니다.')
+				location.href="${pageContext.request.contextPath}/dept/list.jsp";
+			</script>
+		<%} else {%>
+			<script>
+				alert('삭제 안됐어~')
+				location.href="${pageContext.request.contextPath}/dept/list.jsp";
+			</script>
+		<%} %>
+	</div>
+</body>
+</html>

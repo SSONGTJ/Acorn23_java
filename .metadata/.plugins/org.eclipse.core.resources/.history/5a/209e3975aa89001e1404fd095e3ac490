@@ -1,0 +1,7 @@
+package test.dept.dto;
+
+public class DeptDto {
+	private int deptno;
+	private String dname;
+	private String loc;
+}

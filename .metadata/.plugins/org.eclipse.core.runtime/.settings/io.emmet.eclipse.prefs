@@ -1,0 +1,3 @@
+eclipse.preferences.version=1
+io.emmet.eclipse.preferences.EmmetTemplatesPreferencesPage.snippets=<?xml version\="1.0" encoding\="UTF-8" standalone\="no"?><templates><template autoinsert\="true" context\="io.emmet.eclipse.templates.html" deleted\="false" description\="\uCEE8\uD14D\uC2A4\uD2B8 \uACBD\uB85C" enabled\="true" name\="cpath">\\${pageContext.request.contextPath}</template></templates>
+tabExtensions=jsp,html, xml, xsl, xsd, css, php, tpl, less, styl, scss, sass, jade, haml, hbs, twig

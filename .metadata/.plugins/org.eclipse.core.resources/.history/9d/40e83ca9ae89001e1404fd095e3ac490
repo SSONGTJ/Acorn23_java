@@ -1,0 +1,27 @@
+<%@page import="test.dept.dto.DeptDto"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%
+	// 값 받아오기
+	int detpno=Integer.parseInt(request.getParameter("deptno"));
+	String dname=request.getParameter("dname");
+	String loc=request.getParameter("loc");
+	
+	// db에 저장하기
+	DeptDto dto = new DeptDto();
+	dto.setDeptno("deptno");
+	dto.setDname("dname");
+	dto.setLoc("loc");
+	
+	
+%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>/dept/insert.jsp</title>
+</head>
+<body>
+
+</body>
+</html>

@@ -1,0 +1,18 @@
+package test.dept.dao;
+
+import test.member.dao.MemberDao;
+
+public class DeptDao {
+	//자신의 참조값을 담을 static 필드
+	private static DeptDao dao;
+	//외부에서 객체 생성하지 못하도록 생성자의 접근 지정자를 private 로
+	private DeptDao() {}
+	//자신의 참조값을 리턴해주는 static public(공개) 메소드
+	public static DeptDao getInstance() {
+		//만일 최초의 호출이라면
+		if(dao==null) {
+			dao=new DeptDao();
+		}
+		return dao;
+	}
+}

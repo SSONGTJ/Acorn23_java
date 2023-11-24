@@ -1,0 +1,45 @@
+package test.guest.dao;
+
+import java.util.List;
+
+import test.guest.dto.GuestDto;
+
+public class GuestDao {
+	// 자신의 참조값을 저장할 static 필드
+	private static GuestDao dao;
+	
+	// static 초기화 블럭 (이 클래스가 최초로 사용될 때 오직 한번만 수행된다.)
+	static {
+		dao=new GuestDao();
+	}
+	
+	// 외부에서 객체 생성하지 못하도록
+	private GuestDao() {
+		
+	}
+	// 자신의 참조값을 리턴해줄 static 메소드
+	public static GuestDao getInstance() {
+		return dao;
+	}
+	
+	/*
+	 * 	글 번호는 board_quest_seq.NEXTVAL 해서 부여하세요
+	 * 	글의 등록날짜는 SYSDATE 로 등록하세요.
+	 * 	글 수정시 날짜는 수정하지 마세요.
+	 */
+	public boolean insert (GuestDto dto) {
+		return false;
+	}
+	public boolean update (GuestDto dto) {
+		return false;
+	}
+	public boolean delete (int num) {
+		return false;
+	}
+	public GuestDto getData(int num) {
+		return null;
+	}
+	public List<GuestDto> getList(){
+		return null;
+	}
+}

@@ -1,0 +1,39 @@
+<%@page import="test.member.dto.MemberDto"%>
+<%@page import="test.util.DbcpBean"%>
+<%@page import="java.sql.PreparedStatement"%>
+<%@page import="java.sql.Connection"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%
+	// post 방식 전송했을 때 한글 안깨지도록
+	request.setCharacterEncoding("utf-8");
+
+	// form 전송되는 회원의 이름과 주소를 읽어와서
+	String name = request.getParameter("name");
+	String addr = request.getParameter("addr");
+	
+	// DB에 저장하고
+	MemberDto list=new MemberDto();
+	list.getName(name);
+	list.getAddr(addr);
+	
+	// 응답한다.
+
+
+	
+%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>/member/insert.jsp</title>
+</head>
+<body>
+	<div class="container">
+		<h1>회원 정보 입력 결과</h1>
+		<p>회원 정보가 추가됨</p>
+		<p>이름 :</p>
+		<p>주소 : </p>
+	</div>
+</body>
+</html>

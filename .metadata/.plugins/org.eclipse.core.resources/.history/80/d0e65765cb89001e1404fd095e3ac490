@@ -1,0 +1,61 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>/index.jsp</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        a {
+            text-decoration: none;
+            color: #007bff;
+            transition: color 0.3s;
+        }
+
+        a:hover {
+            color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+	<div class="container">
+	<h1>인덱스 페이지 입니다.</h1>
+	<ul>
+		<li><a href="test.jsp">Connection 객체 잘 얻어오는지 확인하기</a></li>
+		<li><a href="${pageContext.request.contextPath}/member/list.jsp">회원목록 보기</a></li>
+		<li><a href="${pageContext.request.contextPath}/member/list2.jsp">회원목록 보기</a></li>
+		<li><a href="${pageContext.request.contextPath}/dept/list.jsp">부서목록 보기</a></li>
+		<li><a href="${pageContext.request.contextPath}/guest/list.jsp">방명록 보기</a></li>
+	</ul>
+	</div>
+</body>
+</html>

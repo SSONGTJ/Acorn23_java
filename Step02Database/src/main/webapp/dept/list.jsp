@@ -1,0 +1,110 @@
+<%@page import="test.dept.dto.DeptDto"%>
+<%@page import="java.util.List"%>
+<%@page import="test.dept.dao.DeptDao"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%
+	//DeptDao 객체의 참조값을 static 메소드를 이용해서 얻어온다.
+	List<DeptDto> list = DeptDao.getInstance().getList();
+%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>/dept/list.jsp</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5; /* 연한 그레이 */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: #ffffff; /* 흰색 */
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 15px;
+            overflow: hidden;
+            margin: 20px;
+            padding: 20px;
+            width: 80%;
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+
+        a {
+            text-decoration: none;
+            color: #ffffff; /* 흰색 */
+            background-color: #007bff; /* 파란색 */
+            padding: 10px 20px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            display: inline-block;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #e1e1e1;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #007bff; /* 파란색 */
+            color: #ffffff; /* 흰색 */
+        }
+
+        td a {
+            color: #333;
+        }
+
+        td a:hover {
+            color: white; 
+        }
+    </style>
+</head>
+<body>
+	<div class="container">
+		<h1>부서목록 입니다.</h1>
+		<a href="${pageContext.request.contextPath}/dept/insertform.jsp">부서추가</a>
+		<table>
+			<thead>
+				<tr>
+					<th>부서번호</th>
+					<th>부서이름</th>
+					<th>지역</th>
+					<th>수정</th>
+					<th>삭제</th>
+				</tr>
+			</thead>
+			<tbody>
+				<%for(DeptDto dto:list){ %>
+				<tr>
+					<td><%=dto.getDeptno() %></td>
+					<td><%=dto.getDname() %></td>
+					<td><%=dto.getLoc() %></td>
+					<td>
+						<a href="${pageContext.request.contextPath}/dept/updateform.jsp?deptno=<%=dto.getDeptno() %>">수정</a>
+					</td>
+					<td>
+						<a href="${pageContext.request.contextPath}/dept/delete.jsp?deptno=<%=dto.getDeptno() %>">삭제</a>
+					</td>
+				</tr>
+				<%} %>
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>

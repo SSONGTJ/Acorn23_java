@@ -1,0 +1,49 @@
+<%@page import="test.member.dao.MemberDao"%>
+<%@page import="test.member.dto.MemberDto"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%
+	//post 방식 전송했을 때 한글 안깨지도록
+	request.setCharacterEncoding("utf-8");
+
+	// form 전송되는 회원의 이름과 주소를 읽어와서
+	int num = Integer.parseInt(request.getParameter("num"));
+	String name = request.getParameter("name");
+	String addr = request.getParameter("addr");
+	
+	// DB에 저장하고
+	MemberDto dto = new MemberDto();
+	dto.setNum(num);
+	dto.setName(name);
+	dto.setAddr(addr);
+	
+	MemberDao dao = MemberDao.getInstance();
+	boolean isSuccess=dao.update(dto);
+	// 응답한다.
+%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>/member/update.jsp</title>
+</head>
+<body>
+	<div class="container">
+		<h1>회원 정보 수정 결과</h1>
+		<%if(isSuccess){%>
+			<script>
+				//알림창을 띄우고
+				alert("수정 했습니다.");
+				// location 객체를 이용해서 회원 목록보기로 리다이렉트 시키기
+				location.href="${pageContext.request.contextPath}/member/list.jsp";
+			</script>
+		<%}else {%>
+			<h1>알림</h1>
+			<p>
+				수정 실패!
+				<a href="updateform.jsp?num=<%=num %>">다시 수정하러 가기</a>
+			</p>
+		<%} %>
+	</div>
+</body>
+</html>

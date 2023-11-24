@@ -1,0 +1,66 @@
+@charset "UTF-8";
+
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5; /* 연한 그레이 */
+        }
+
+        .container {
+            background-color: #ffffff; /* 흰색 */
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 15px;
+            overflow: hidden;
+            margin: 20px;
+            padding: 20px;
+            width: 80%;
+            margin: 20px auto;
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+
+        a {
+            display: block;
+            text-align: center;
+            text-decoration: none;
+            color: #ffffff; /* 흰색 */
+            background-color: #007bff; /* 파란색 */
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            transition: background-color 0.3s;
+        }
+
+        a:hover {
+            background-color: #0056b3; /* 진한 파란색 */
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #e1e1e1;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #007bff; /* 파란색 */
+            color: #ffffff; /* 흰색 */
+        }
+
+        td textarea {
+            width: 100%;
+            resize: none;
+            border: 1px solid #e1e1e1;
+            padding: 10px;
+            box-sizing: border-box;
+            background-color: #f9f9f9; /* 연한 회색 */
+        }

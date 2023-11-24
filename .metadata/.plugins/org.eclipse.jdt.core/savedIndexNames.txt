@@ -1,0 +1,7 @@
+INDEX VERSION 1.134+C:\Users\acorn\Desktop\OtherCom\other_webwork\.metadata\.plugins\org.eclipse.jdt.core
+1316499187.index
+424668444.index
+1865797976.index
+621997070.index
+3179936701.index
+4219279280.index

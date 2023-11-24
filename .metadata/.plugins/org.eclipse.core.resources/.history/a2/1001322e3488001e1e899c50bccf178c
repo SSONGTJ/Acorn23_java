@@ -1,0 +1,18 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%
+	request.setCharacterEncoding("utf-8");
+	String num = request.getParameter("num");
+	String amount=request.getParameter("amount");
+%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<p>num : <%=num %>개</p>
+	<p>amount : <%=amount %>개</p>
+</body>
+</html>

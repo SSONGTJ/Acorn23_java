@@ -1,0 +1,18 @@
+<%@page import="test.guest.dao.GuestDao"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%
+	boolean isSuccess = GuestDao.getInstance().insert(dto);
+%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>/guest/insert.jsp</title>
+</head>
+<body>
+	<div class="container">
+		<h1>작성 후 결과 안내</h1>
+	</div>
+</body>
+</html>
