@@ -3,20 +3,26 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
+	// 폼 전송되는 삭제할 글의 글번호와 비밀번호를 추출
 	int num = Integer.parseInt(request.getParameter("num"));
 	String pwd = request.getParameter("pwd");
-	
+	//GuestDto 를 이용해서 글을 삭제하고
 	GuestDto dto = new GuestDto();
 	dto.setNum(num);
 	dto.setPwd(pwd);
-	
-	GuestDto list = GuestDao.getInstance().getData(num);
-	
-	boolean isSuccess = false;
-	
-	if (pwd.equals(list.getPwd())){
-		isSuccess = GuestDao.getInstance().delete(dto);
-	} 
+	boolean isSuccess = GuestDao.getInstance().delete(dto);
+	if(isSuccess){
+		//context path 읽어오기
+		String cPath = request.getContextPath();
+		/*
+			jsp 기본 객체인 HttpServletResponse 객체의 sendRedirect() 메소드를 이용해서 응답하기
+			
+			이 응답은 메소드를 호출하면서 전달한 경로로 웹브라우저에게 다시 요청을 하라는 응답이다.
+			
+			이런 응답을 받은 웹브라우저는 해당 경로로 요청을 다시하게된다. (페이지 이동이 된다.)
+		*/
+		response.sendRedirect(cPath+"/guest/list.jsp"); //cpath 안먹음 그래서 이렇게 써줘야함
+	}
 	
 %>
 <!DOCTYPE html>
