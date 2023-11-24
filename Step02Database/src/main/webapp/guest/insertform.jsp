@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/guest/sub.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/guest/update.css">
 <title>/guest/insertform.jsp</title>
 </head>
 <body>

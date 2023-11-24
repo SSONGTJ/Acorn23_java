@@ -108,7 +108,7 @@ public class GuestDao {
 			conn = new DbcpBean().getConn();
 			//실행할 sql 문
 			String sql = "DELETE FROM board_guest"
-					+ " WHERE num=?, AND pwd=?";
+					+ " WHERE num=? AND pwd=?";
 			pstmt = conn.prepareStatement(sql);
 			//? 에 바인딩 할 내용이 있으면 바인딩
 			pstmt.setInt(1, dto.getNum());
