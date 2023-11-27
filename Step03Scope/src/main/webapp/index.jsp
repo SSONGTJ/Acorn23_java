@@ -15,6 +15,24 @@
 			<li><a href="${pageContext.request.contextPath}/friend/list">친구목록</a></li>
 			<li><a href="${pageContext.request.contextPath}/member/list">회원목록</a></li>
 		</ul>
+		<form action="${pageContext.request.contextPath}/test/save.jsp" method="post">
+			<input type="text" name="nick" palceholder="닉네임 입력..." />
+			<button type="submit">닉네임 기억 시키기</button>
+		</form>
+		<br />
+		<form action="${pageContext.request.contextPath}/test/save" method="post">
+			<input type="text" name="nick" palceholder="닉네임 입력..." />
+			<button type="submit">닉네임 기억 시키기</button>
+		</form>
+		<%
+			String nick = (String)session.getAttribute("nick");
+		%>
+		<%if(nick!=null){%>
+			<p>
+				<strong><%=nick %></strong>님 반갑습니다.
+				<a href="${pageContext.request.contextPath}/test/logout.jsp">로그아웃</a>
+			</p>
+		<%}%>
 	</div>
 </body>
 </html>
