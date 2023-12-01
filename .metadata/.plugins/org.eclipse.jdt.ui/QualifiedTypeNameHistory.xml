@@ -16,4 +16,5 @@
     <fullyQualifiedTypeName name="javax.servlet.http.HttpSession"/>
     <fullyQualifiedTypeName name="javax.servlet.RequestDispatcher"/>
     <fullyQualifiedTypeName name="javax.swing.text.html.HTML"/>
+    <fullyQualifiedTypeName name="test.user.dto.UserDto"/>
 </qualifiedTypeNameHistroy>

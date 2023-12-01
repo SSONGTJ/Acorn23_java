@@ -2,5 +2,6 @@
 <modules>
   <module moduleId="org.eclipse.jst.jee.server:Step02Database" serverId="Tomcat v9.0 Server at localhost"/>
   <module moduleId="org.eclipse.jst.jee.server:Step04FetchAPI" serverId="Tomcat v9.0 Server at localhost"/>
+  <module moduleId="org.eclipse.jst.jee.server:Step05Final" serverId="Tomcat v9.0 Server at localhost"/>
   <module moduleId="org.eclipse.jst.jee.server:Step03Scope" serverId="Tomcat v9.0 Server at localhost"/>
 </modules>
