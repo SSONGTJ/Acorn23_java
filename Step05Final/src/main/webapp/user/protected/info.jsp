@@ -7,6 +7,7 @@
 	String id = (String)session.getAttribute("id");
 	//가입정보를 DB에서 읽어온다.
 	UserDto dto = UserDao.getInstance().getData(id);
+	String profile = dto.getProfile();
 %>
 <!DOCTYPE html>
 <html>
@@ -30,7 +31,7 @@
 			<tr>
 				<th>프로필 이미지</th>
 				<td>
-				
+					<img id="image" width="20" height="20" src="${pageContext.request.contextPath}/upload/<%=profile %>" alt="" />
 				</td>
 			</tr>
 			<tr>

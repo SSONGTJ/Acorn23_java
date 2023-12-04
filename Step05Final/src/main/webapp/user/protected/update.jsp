@@ -7,10 +7,13 @@
 	String email = request.getParameter("email");
 	//수정할 회원의 PK (아이디)
 	String id=(String)session.getAttribute("id");
+	//수정할 프로필 이미지
+	String profile = request.getParameter("myImage");
 	//수정할 회원의 정보를 UserDto 에 담고
 	UserDto dto = new UserDto ();
 	dto.setId(id);
 	dto.setEmail(email);
+	dto.setProfile(profile);
 	//DB에 수정반영하고
 	boolean isSuccess = UserDao.getInstance().update(dto);
 	//응답하기

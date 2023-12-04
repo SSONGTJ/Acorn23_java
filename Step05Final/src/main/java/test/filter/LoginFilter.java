@@ -1,6 +1,7 @@
 package test.filter;
 
 import java.io.IOException;
+import java.net.URLEncoder;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -12,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-@WebFilter("/user/protected/*")
+@WebFilter({"/user/protected/*","/shop/*"})
 public class LoginFilter implements Filter{
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
@@ -29,12 +30,32 @@ public class LoginFilter implements Filter{
 		if(id != null) {
 			chain.doFilter(request, response);
 		}else { //3. 로그인을 하지 않았으면 로그인 폼으로 이동할 수 있도록 리다이렉트 응답을 준다.
+			
+			/*
+			 *  로그인 페이지로 강제 리다이렉트 됐다면 
+			 *  로그인 성공후에 원래 가려던 목적지로 다시 보내야 하고
+			 *  GET 방식 전송 파라미터가 있다면 파라미터 정보도 같이 가지고 갈 수 있도록 해야한다.
+			 */
+			//원래 가려던 url 정보 읽어오기
+			String url=req.getRequestURI();
+			//GET 방식 전송 파라미터를 query 문자열로 읽어오기 ( a=xxx&b=xxx&c=xxx )
+			String query=req.getQueryString();
+			//특수 문자는 인코딩을 해야한다.
+			String encodedUrl=null;
+			if(query==null) {//전송 파라미터가 없다면 
+				encodedUrl=URLEncoder.encode(url);
+			}else {
+				// 원래 목적지가 /test/xxx.jsp 라고 가정하면 아래와 같은 형식의 문자열을 만든다.
+				// "/test/xxx.jsp?a=xxx&b=xxx ..."
+				encodedUrl=URLEncoder.encode(url+"?"+query);
+			}
+			
 			//절대 경로 이동을 위해서 context path 도 읽어온다.
 			String cpath=req.getContextPath();
 			//ServletResponse type 을 HttpServletResponse type 으로 casting
 			HttpServletResponse res = (HttpServletResponse)response;
 			//리다이렉트 응답 (새로운 경로로 요청을 다시 하라고 응답)
-			res.sendRedirect(cpath+"/user/loginform.jsp");
+			res.sendRedirect(cpath+"/user/loginform.jsp?url="+encodedUrl);
 		}
 	}
 }
