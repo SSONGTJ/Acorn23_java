@@ -36,7 +36,6 @@
 				//이미지를 로딩하기
 				document.querySelector("#image").setAttribute("src",src);
 			});
-
 		});
 	</script>
 </body>

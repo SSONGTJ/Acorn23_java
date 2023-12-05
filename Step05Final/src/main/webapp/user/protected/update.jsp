@@ -7,8 +7,13 @@
 	String email = request.getParameter("email");
 	//수정할 회원의 PK (아이디)
 	String id=(String)session.getAttribute("id");
-	//수정할 프로필 이미지
-	String profile = request.getParameter("myImage");
+	
+	//수정할 프로필 이미지 (프로필이 한번도 등록한적이 없으면 "null" 이 넘어온다.)
+	String profile = request.getParameter("profile");
+	if(profile.equals("null")){
+		//DB의 profile 칼럼을 null 로 유지하기 위해 null 을 넣어준다.
+		profile=null;
+	}
 	//수정할 회원의 정보를 UserDto 에 담고
 	UserDto dto = new UserDto ();
 	dto.setId(id);
