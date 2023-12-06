@@ -1,0 +1,95 @@
+@charset "UTF-8";
+
+/* /cafe/css/detail.css */
+
+body {
+    font-family: '맑은 고딕', 'Malgun Gothic', Arial, sans-serif;
+    background-color: #f0f5f9;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 600px;
+    margin: 20px auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+article {
+    border-bottom: 2px solid #4e92b0;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+}
+
+.num, .writer {
+    color: #555;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.num, .writer, .viewCount{
+	display:inline;
+}
+
+.title {
+    color: #006699;
+    margin-bottom: 15px;
+}
+
+.content {
+    color: #333;
+    line-height: 1.6;
+    margin:100px 0;
+}
+
+.content textarea {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+    resize: vertical;
+}
+
+.content textarea:focus {
+    outline: none;
+    border-color: #006699;
+    box-shadow: 0 0 5px rgba(0, 102, 153, 0.5);
+}
+
+.viewCount {
+	float:right;
+}
+
+.regdate {
+	float:left;
+}
+
+.viewCount, .regdate {
+    color: #777;
+    font-size: 12px;
+    margin-bottom: 5px;
+}
+.Btn {
+	clear:both ;
+	text-align: center;
+}
+.updateBtn, .deleteBtn {
+    background-color: #006699;
+    color: #fff;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.updateBtn:hover, .deleteBtn:hover {
+    background-color: #004466;
+}

@@ -33,6 +33,7 @@
 			<li><a href="test/upload_form3.jsp">이미지 업로드 테스트(fetch 를 활용)</a></li>
 			<li><a href="test/upload_form4.jsp">이미지 단독 업로드 테스트2(fetch 를 활용)</a></li>
 			<li><a href="file/list.jsp">자료실 목록보기</a></li>
+			<li><a href="cafe/index.jsp">231206 과제</a></li>
 		</ul>
 	</div>
 </body>
