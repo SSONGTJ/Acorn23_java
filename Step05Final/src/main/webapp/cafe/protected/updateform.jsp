@@ -13,6 +13,7 @@
 <head>
 <meta charset="UTF-8">
 <title>/cafe/protected/updateform.jsp</title>
+<link href="${pageContext.request.contextPath}/cafe/css/updateform.css" rel="stylesheet">
 </head>
 <body>
 	<div class="container">

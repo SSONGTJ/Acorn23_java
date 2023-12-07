@@ -6,6 +6,7 @@
 	String id = (String)session.getAttribute("id");
 	int num = Integer.parseInt(request.getParameter("num"));
 	CafeDto dto = CafeDao.getInstance().getData(num);
+	int viewCount = CafeDao.getInstance().increaseViewCount(num);
 %>
 <!DOCTYPE html>
 <html>

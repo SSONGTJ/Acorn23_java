@@ -42,3 +42,13 @@ FROM
 		FROM board_file
 		ORDER BY num DESC) result1)
 WHERE rnum BETWEEN 6 AND 10;
+
+-- 페이징 처리 cafe
+SELECT *
+FROM
+	(SELECT result1.*, ROWNUM AS rnum
+	FROM
+		(SELECT num, writer, title, content, viewCount, regdate
+		FROM board_cafe
+		ORDER BY num DESC) result1)
+WHERE rnum BETWEEN 6 AND 10;

@@ -10,11 +10,20 @@
 <head>
 <meta charset="UTF-8">
 <title>/cafe/index.html</title>
+<link href="${pageContext.request.contextPath}/cafe/css/index.css" rel="stylesheet">
 </head>
 <body>
 	<div class="container">
+		<%if(id != null) {%>
+			<p>
+				<a href="${pageContext.request.contextPath}/user/protected/info.jsp"><strong><%=id %></strong>님 로그인 중...</a>
+				<a href="${pageContext.request.contextPath}/user/logout.jsp">로그아웃</a>
+			</p>
+		<%}else{ %>
+			<a href="${pageContext.request.contextPath}/user/loginform.jsp">로그인</a>
+		<%} %>
 		<h2>231206 과제!</h2>
-		<p style="display:none;" id="assignment">
+		<p id="assignment">
 		★ 과제 (231207 오후까지)<br />
 		<br />
 		[ board_cafe 테이블과 board_cafe_seq 시퀀스를 이용해서 게시글에 관련된 기능을 구현해 보세요 ] <br />
@@ -28,9 +37,9 @@
 		Ｖ 새글 작성폼 ( /cafe/protected/insertform.jsp )<br />
 		Ｖ 새글 저장 ( /cafe/protected/insert.jsp)<br />
 		Ｖ 글 자세히 보기 (/cafe/detail.jsp)<br />
-		글 삭제하기 (/cafe/protected/delete.jsp)<br />
-		글 수정폼 (/cafe/protected/updateform.jsp)<br />
-		글 수정 저장 (/cafe/protected/update.jsp)<br />
+		Ｖ 글 삭제하기 (/cafe/protected/delete.jsp)<br />
+		Ｖ 글 수정폼 (/cafe/protected/updateform.jsp)<br />
+		Ｖ 글 수정 저장 (/cafe/protected/update.jsp)<br />
 		<br />
 		- 조건<br />
 		Ｖ 글목록에는 수정, 삭제 링크를 출력하지 않는다.<br />
@@ -39,7 +48,7 @@
 		Ｖ 글 자세히 보기 페이지에서 만일 본인이 작성한 글인 경우에만 [수정] [삭제] 링크를 제공한다.<br />
 		Ｖ 새글을 작성할때 글 내용은 textarea 를 이용해서 입력을 받는다<br />
 		Ｖ 글 자세히 보기 페이지에서 글 내용은 textarea 를 이용해서 출력한다.<br />
-		페이징 처리도 해 보세요<br />
+		Ｖ 페이징 처리도 해 보세요<br />
 		<br />
 		num NUMBER PRIMARY KEY, -- 글 번호<br />
 		writer VARCHAR2(100) NOT NULL, -- 작성자 (로그인된 아이디)<br />
@@ -49,26 +58,13 @@
 		regdate DATE -- 글 작성일<br />
 		board_cafe_seq<br />
 		</p>
-		<button id="assignClick">과제 설명 보기</button>
-		
-		<%if(id != null) {%>
-			<p>
-				<a href="${pageContext.request.contextPath}/user/protected/info.jsp"><strong><%=id %></strong>님 로그인 중...</a>
-				<a href="${pageContext.request.contextPath}/user/logout.jsp">로그아웃</a>
-			</p>
-		<%}else{ %>
-			<a href="${pageContext.request.contextPath}/user/loginform.jsp">로그인</a>
-		<%} %>
+		<button id="assignClick">과제 설명 열기</button>
+
 		<ul>
 			<li><a href="${pageContext.request.contextPath}/user/signup_form.jsp">회원가입</a></li>
 			<li><a href="${pageContext.request.contextPath}/user/protected/info.jsp">가입정보</a></li>
 			<li><a href="${pageContext.request.contextPath}/cafe/list.jsp">글 목록 보기</a></li>
 			<li><a href="${pageContext.request.contextPath}/cafe/protected/insertform.jsp">새글 작성 폼</a></li>
-			<li><a href="${pageContext.request.contextPath}/cafe/protected/insert.jsp">새글 저장</a></li>
-			<li><a href="${pageContext.request.contextPath}/cafe/detail.jsp">글 자세히보기</a></li>
-			<li><a href="${pageContext.request.contextPath}/cafe/protected/delete.jsp">글 삭제하기</a></li>
-			<li><a href="${pageContext.request.contextPath}/cafe/protected/updateform.jsp">글 수정폼</a></li>
-			<li><a href="${pageContext.request.contextPath}/cafe/protected/update.jsp)">글 수정 저장</a></li>
 		</ul>
 	</div>
 	
@@ -76,8 +72,10 @@
 		document.querySelector("#assignClick").addEventListener("click",()=>{
 			if(document.querySelector("#assignment").style.display === 'block'){
 				document.querySelector("#assignment").style.display='none';
+				document.querySelector("#assignClick").innerText = "과제 설명 열기";
 			} else {
 				document.querySelector("#assignment").style.display='block';
+				document.querySelector("#assignClick").innerText = "과제 설명 닫기";
 			}
 		});
 	</script>

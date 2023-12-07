@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%
+	String writer = (String)session.getAttribute("id");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,6 +14,10 @@
 	<div class="container">
 		<h3>새로운 글 작성</h3>
 		<form action="insert.jsp" method="post">
+			<div>
+				<label for="writer">작성자</label>
+				<input type="text" name="writer" value="<%=writer %>" readonly />
+			</div>
 			<div>
 				<label for="title">제목</label>
 				<input type="text" name="title" id="title" />

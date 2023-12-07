@@ -169,6 +169,10 @@ public class UserDao {
 			return false;
 		}
 	}
+	// 프로필 삭제 메소드
+	public boolean profileDelete () {
+		return false;
+	}
 	// 회원 정보 삭제하기
 	// 회원 정보 불러오기
 }
