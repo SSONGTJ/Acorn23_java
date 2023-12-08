@@ -12,13 +12,23 @@ import test.util.DbcpBean;
 public class CafeDao {
 	// 자신의 참조값을 저장할 필드
 	public static CafeDao dao;
-	// 외부에서 객체 생성하지 못하도록
-	private CafeDao() {}
-	// 참조값을 리턴해주는 공개 static 메소드 만들기
+	/*
+	 *  static 메소드는 생성자를 호출하지 않고 클래스명으로 바로 호출을 하기 때문에
+	 *  메소드 호출전에 무언가 준비 작업을 하고 싶다면 static 블럭 안에서 하면 된다.
+	 *  static 블럭은 해당클래스를 최초로 사용할때 한번만 실행되기 때문에
+	 *  초기화 작업을 하기에 적당한 블럭이다.
+	 */
+	static {
+		//객체를 생성해서 static 필드에 저장해 두면 
+		dao=new CafeDao();
+	}
+	//외부에서 객체생성하지 못하도록
+		private CafeDao() {}
+		
+	//static 메소드 
 	public static CafeDao getInstance() {
-		if(dao==null) {
-			dao = new CafeDao();
-		} return dao;
+		//여기서 리턴해주는 값은 null 이 아니다 
+		return dao;
 	}
 	
 	//업로드된 파일의 정보를 DB 에 저장하는 메소드
@@ -101,7 +111,7 @@ public class CafeDao {
 		return list;
 	}
 	//페이징
-	public List<CafeDto> getList(int start, int end){
+	public List<CafeDto> getList(CafeDto dto){
 		List<CafeDto> list = new ArrayList<CafeDto>();
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -115,20 +125,20 @@ public class CafeDao {
 					+ " WHERE rnum BETWEEN ? AND ?";
 			pstmt = conn.prepareStatement(sql);
 			//? 에 바인딩할 내용이 있으면 여기서 한다.
-			pstmt.setInt(1, start);
-			pstmt.setInt(2, end);
+			pstmt.setInt(1, dto.getStartRowNum());
+			pstmt.setInt(2, dto.getEndRowNum());
 			//query 문 수행하고 결과(ResultSet) 얻어내기
 			rs = pstmt.executeQuery();
 			//반복문 돌면서 
 			while (rs.next()) {
-				CafeDto dto = new CafeDto();
-				dto.setNum(rs.getInt("num"));
-				dto.setWriter(rs.getString("writer"));
-				dto.setTitle(rs.getString("title"));
-				dto.setContent(rs.getString("content"));
-				dto.setViewCount(rs.getInt("viewCount"));
-				dto.setRegdate(rs.getString("regdate"));
-				list.add(dto);
+				CafeDto tmp = new CafeDto();
+				tmp.setNum(rs.getInt("num"));
+				tmp.setWriter(rs.getString("writer"));
+				tmp.setTitle(rs.getString("title"));
+				tmp.setContent(rs.getString("content"));
+				tmp.setViewCount(rs.getInt("viewCount"));
+				tmp.setRegdate(rs.getString("regdate"));
+				list.add(tmp);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -7,7 +7,7 @@
 	//한 페이지에 몇개씩 표시할 것인지
 	final int PAGE_ROW_COUNT=5;
 	//하단 페이지를 몇개씩 표시할 것인지?
-	final int PAGE_DISPLAY_COUNT=2;
+	final int PAGE_DISPLAY_COUNT=10;
 	
 	//보여줄 페이지의 번호를 일단 1이라고 초기값 지정
 	int pageNum=1;
@@ -39,9 +39,12 @@
 	}
 
 	//List<CafeDto> list = CafeDao.getInstance().getList();
+	CafeDto dto = new CafeDto();
+	dto.setStartRowNum(startRowNum);
+	dto.setEndRowNum(endRowNum);
 	
 	//보여줄 페이지에 맞는 목록만 얻어오기 
-	List<CafeDto> list = CafeDao.getInstance().getList(startRowNum, endRowNum);
+	List<CafeDto> list = CafeDao.getInstance().getList(dto);
 	// 로그인된 사용자 읽어오기 (로그인 되지 않았다면 null 이다)
 	String id=(String)session.getAttribute("id");
 	
@@ -73,48 +76,43 @@
 				</tr>
 			</thead>
 			<tbody>
-				<%for (CafeDto dto : list) { %>
+				<%for (CafeDto tmp : list) { %>
 					<tr>
-						<td><%=dto.getNum() %></td>
-						<td><%=dto.getWriter() %></td>
-						<td><a href="detail.jsp?num=<%=dto.getNum() %>"><%=dto.getTitle() %></a></td>
-						<td><%=dto.getViewCount() %></td>
-						<td><%=dto.getRegdate() %></td>
+						<td><%=tmp.getNum() %></td>
+						<td><%=tmp.getWriter() %></td>
+						<td><a href="detail.jsp?num=<%=tmp.getNum() %>"><%=tmp.getTitle() %></a></td>
+						<td><%=tmp.getViewCount() %></td>
+						<td><%=tmp.getRegdate() %></td>
 					</tr>
 				<%} %>
 			</tbody>
 		</table>
 		<!-- 페이징 UI -->
-		<ul class="page-list">
-			<!-- 
-				startPageNum 이 1인 아닌 경우에만 Prev 링크를 제공한다
-			 -->
-			 <%if(startPageNum != 1) {%>
-			 	<li>
-			 		<a href="list.jsp?pageNum=<%=startPageNum-1 %>">Prev</a>
-			 	</li>
-			 <%} %>
-			 
-			<%for(int i=startPageNum; i<=endPageNum; i++){ %>
-				<%if(i == pageNum){ %>
-					<li class="active">
-						<a href="list.jsp?pageNum=<%=i %>"><%=i %></a>
+		<nav>
+			<ul class="page-list">
+				<!-- 
+					startPageNum 이 1인 아닌 경우에만 Prev 링크를 제공한다
+				 -->
+				 <%if(startPageNum != 1){ %>
+					<li class="page-item">
+						<a class="page-link" href="list.jsp?pageNum=<%=startPageNum-1 %>">Prev</a>
 					</li>
-				<%}else{ %>
-					<li>
-						<a href="list.jsp?pageNum=<%=i %>"><%=i %></a>
+				<%} %>
+				<%for(int i=startPageNum; i<=endPageNum; i++){ %>
+					<li class="page-item <%= i==pageNum ? "active":"" %>">
+						<a class="page-link" href="list.jsp?pageNum=<%=i %>"><%=i %></a>
 					</li>
-				<%} %>	
-			<%} %>
-			<!-- 
-				마지막 페이지 번호가 전체 페이지의 갯수보다 작으면 Next 링크를 제공한다.
-			 -->
-			<%if(endPageNum < totalPageCount) {%>
-			 	<li>
-			 		<a href="list.jsp?pageNum=<%=endPageNum+1 %>">Next</a>
-			 	</li>
-			 <%} %>
-		</ul>
+				<%} %>
+				<!-- 
+					마지막 페이지 번호가 전체 페이지의 갯수보다 작으면 Next 링크를 제공한다.
+				 -->
+				<%if(endPageNum < totalPageCount) {%>
+				 	<li>
+				 		<a href="list.jsp?pageNum=<%=endPageNum+1 %>">Next</a>
+				 	</li>
+				 <%} %>
+			</ul>
+		<nav>
 	</div>
 </body>
 </html>
