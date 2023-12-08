@@ -22,11 +22,13 @@
 <head>
 <meta charset="UTF-8">
 <title>/cafe/protected/insert.jsp</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </head>
 <body>
 	<div class="container">
-		<h3>회원 정보 입력 결과</h3>
-		<%if(isSuccess){%>
+		<!-- <h3>회원 정보 입력 결과</h3> -->
+		<!-- <%if(isSuccess){%>
 			<script>
 				//알림창을 띄우고
 				alert("<%=writer %>님 등록 했습니다.");
@@ -38,7 +40,23 @@
 				실패~
 				<a href="insertform.jsp">다시 입력</a>
 			</p>
-		<%} %>
+		<%} %> -->
+		<div class="card w-50 mt-5 border-success">
+			<%if(isSuccess){ %>
+				<div class="card-body">
+					<h5 class="card-title">알림</h5>
+					<p class="card-text"><%=writer %>  님이 작성한 새글을 저장했습니다</p>
+					<a class="btn btn-primary" href="${pageContext.request.contextPath}/cafe/list.jsp">확인</a>
+				</div>
+			<%}else{ %>
+				<div class="card-body">
+					<h5 class="card-title">알림</h5>
+					<p class="card-text text-danger">글 저장 실패!</p>
+					<a class="btn btn-warning" href="${pageContext.request.contextPath}/cafe/protected/insertform.jsp">다시 작성하기</a>
+				</div>
+			<%} %>
+		</div>
 	</div>
+	
 </body>
 </html>

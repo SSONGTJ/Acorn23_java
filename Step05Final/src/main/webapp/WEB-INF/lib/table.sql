@@ -52,3 +52,11 @@ FROM
 		FROM board_cafe
 		ORDER BY num DESC) result1)
 WHERE rnum BETWEEN 6 AND 10;
+
+
+-- 어떤 ip 주소에서 몇번글을 읽었는지 정보를 저장할 테이블
+CREATE TABLE readed_data(
+	num NUMBER REFERENCES board_cafe(num),
+	session_id VARCHAR2(50)
+)
+

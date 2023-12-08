@@ -231,7 +231,37 @@ public class CafeDao {
 			return false;
 		}
 	}
-	
+	//num 을 참조하고 있는 테이블에서 먼저 삭제하는 메소드
+	public boolean deleteRef(int num) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		int rowCount = 0;
+		try {
+			conn = new DbcpBean().getConn();
+			//실행할 sql 문
+			String sql = "DELETE FROM readed_data"
+					+ "	WHERE num = ?";
+			pstmt = conn.prepareStatement(sql);
+			//? 에 바인딩 할 내용이 있으면 바인딩
+			pstmt.setInt(1, num);
+			rowCount = pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (pstmt != null)
+					pstmt.close();
+				if (conn != null)
+					conn.close();
+			} catch (Exception e) {
+			}
+		}
+		if (rowCount > 0) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 	
 	//파일 하나의 정보를 DB 에서 삭제하는 메소드
 	public boolean delete(int num) {
@@ -298,6 +328,76 @@ public class CafeDao {
 			}
 		}
 		return count;
+	}
+	//글을 읽었다고 표시해주는 메소드
+	public boolean insertReaded(int num, String id) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		int rowCount = 0;
+		try {
+			conn = new DbcpBean().getConn();
+			//실행할 sql 문
+			String sql = "INSERT INTO readed_data"
+					+ "	(num, session_id)"
+					+ "	VALUES(?, ?)";
+			pstmt = conn.prepareStatement(sql);
+			//? 에 바인딩 할 내용이 있으면 바인딩
+			pstmt.setInt(1, num);
+			pstmt.setString(2, id);
+			rowCount = pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (pstmt != null)
+					pstmt.close();
+				if (conn != null)
+					conn.close();
+			} catch (Exception e) {
+			}
+		}
+		if (rowCount > 0) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	//이미 글을 읽었는지 여부를 리턴해주는 메소드
+	public boolean isReaded(int num, String id) {
+		boolean isReaded = false;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			conn = new DbcpBean().getConn();
+			//실행할 sql 문
+			String sql = "SELECT *"
+					+ "	FROM readed_data"
+					+ "	WHERE num = ? AND session_id = ?";
+			pstmt = conn.prepareStatement(sql);
+			//? 에 바인딩할 내용이 있으면 여기서 한다.
+			pstmt.setInt(1, num);
+			pstmt.setString(2, id);
+			//query 문 수행하고 결과(ResultSet) 얻어내기
+			rs = pstmt.executeQuery();
+			//만일 select 된 row 가 존재한다면 이미 읽은 것
+			if (rs.next()) {
+				isReaded = true;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null)
+					rs.close();
+				if (pstmt != null)
+					pstmt.close();
+				if (conn != null)
+					conn.close(); //Connection 객체의 close() 메소드를 호출하면 Pool 에 반납된다.
+			} catch (Exception e) {
+			}
+		}
+		return isReaded;
 	}
 	//조회수 증가 메소드
 	public int increaseViewCount(int num) {

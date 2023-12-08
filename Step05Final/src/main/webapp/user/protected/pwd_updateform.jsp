@@ -13,39 +13,68 @@
 <head>
 <meta charset="UTF-8">
 <title>/user/protected/pwd_updateform.jsp</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
 </head>
 <body>
-		<div class="container">
+		<div class="container" id="app">
 		<h1>비밀 번호 수정 페이지</h1>
 		<form action="pwd_update.jsp" method="post" id="myForm">
-			<div>
-				<label for="pwd">기존 비밀번호</label>
-				<input type="password" name="pwd" id="pwd"/>
+			<div class="mb-2">
+				<label class="form-label" for="pwd">기존 비밀번호</label>
+				<input class="form-control" @input="onPwdInput" v-bind:class="{'is-invalid':!isPwdValid, 'is-valid':isPwdValid}" type="password" name="pwd" id="pwd"/>
+				<div class="invalid-feedback">반드시 입력하세요</div>
 			</div>
-			<div>
-				<label for="newPwd">새 비밀번호</label>
-				<input type="password" name="newPwd" id="newPwd"/>
+			<div class="mb-2">
+				<label class="form-label" for="newPwd">새 비밀번호</label>
+				<input class="form-control" @input="newPwdInput" type="password" name="newPwd" id="newPwd" v-bind:class="{'is-invalid':!newPwdValid, 'is-valid':newPwdValid}"/>
+				<small class="form-text">반드시 입력하고 아래의 확인란과 동일해야 합니다.</small>
+				<div class="invalid-feedback">새 비밀번호를 확인하세요.</div>
 			</div>
-			<div>
-				<label for="newPwd2">새 비밀번호 확인</label>
-				<input type="password" id="newPwd2"/>
+			<div class="mb-2">
+				<label class="form-label" for="newPwd2">새 비밀번호 확인</label>
+				<input class="form-control" @input="newPwdInput2" type="password" id="newPwd2"/>
 			</div>
-			<button type="submit">수정하기</button>
-			<button type="reset">리셋</button>		
+			<button class="btn btn-outline-success" type="submit" :disabled="!isPwdValid && !newPwdValid">수정하기</button>
+			<button class="btn btn-outline-danger" type="reset">리셋</button>		
 		</form>
 	</div>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 	<script>
-		//폼에 submit 이벤트가 일어났을때 실행할 함수를 등록하고 
-		document.querySelector("#myForm").addEventListener("submit", (e)=>{
-			//입력한 새 비밀번호 2개를 읽어와서
-			let pwd1=document.querySelector("#newPwd").value;
-			let pwd2=document.querySelector("#newPwd2").value;
-			//만일 새 비밀번호와 비밀번호 확인이 일치하지 않으면 폼 전송을 막는다.
-			if(pwd1 != pwd2){
-				alert("비밀번호를 확인 하세요!");
-				e.preventDefault();
+	new Vue({
+		el:"#app",
+		data:{
+			isPwdValid : false,
+			newPwdValid : false
+		},
+		computed:{
+			
+		},
+		methods:{
+			onPwdInput(e){
+				//현재까지 입력한 비밀번호
+				const pwd = e.target.value;
+				const reg_pwd=/[\S]+/;
+				if(reg_pwd.test(pwd)){
+					this.isPwdValid=true;
+				}else{
+					this.isPwdValid=false;
+				}
+			},
+			newPwdInput(e){
+				const newPwd = e.target.value;
+			},
+			newPwdInput2(e){
+				const newPwd2 = e.target.value;
+				if(this.newPwd === newPwd2){
+					this.newPwdValid = true;
+				}else {
+					this.newPwdValid = false;
+				}
 			}
-		});
+			
+		}
+	});
 	</script>
 </body>
 </html>
