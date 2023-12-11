@@ -14,6 +14,17 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </head>
 <body>
+	<%-- 
+		/include/navbar.jsp 포함시키기
+		피 포함되는 jsp 페이지에 파라미터를 전달할 수 있다.
+		아래 코드는 current 라는 파라미터 명으로 index 라는 문자열을 전달하는 것이다.
+		따라서, navbar.jsp 페이지에서는 해당 문자열을 아래와 같이 추출할 수 있다.
+		String result = request.getParameter("current"); // "index"
+	--%>
+	<jsp:include page="/include/navbar.jsp">
+		<jsp:param value="index" name="current"/>
+	</jsp:include>
+	
 	<div class="container">
 		<%if(id != null) {%>
 			<p>

@@ -13,6 +13,7 @@
 <link href="${pageContext.request.contextPath}/cafe/css/index.css" rel="stylesheet">
 </head>
 <body>
+	
 	<div class="container">
 		<%if(id != null) {%>
 			<p>

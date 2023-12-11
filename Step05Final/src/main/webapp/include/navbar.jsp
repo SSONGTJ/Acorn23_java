@@ -1,0 +1,50 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%
+	//어느 페이지에 포함되었는지 정보를 얻어오기
+	String currentPage=request.getParameter("current"); // "index" or "member" or "guest"
+	// id 가져옴
+	String id = (String)session.getAttribute("id");
+%>
+
+<!-- 
+	어두운색 계열의 navbar 배경색이면 data-bs-theme="dark" 속성을 추가한다 
+	navbar-expand-md 는 md 영역 이상에서 navbar-collapse 가 펼쳐 지도록 한다.
+-->
+<nav class="navbar bg-success navbar-expand-md" data-bs-theme="dark">
+  <div class="container">
+    <a class="navbar-brand" href="${pageContext.request.contextPath }/index.jsp">
+      <img src="https://getbootstrap.com/docs/5.3/assets/brand/bootstrap-logo.svg" alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
+      Acorn
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" 
+    		data-bs-target="#navbarText">
+     		<span class="navbar-toggler-icon"></span>
+   	</button>
+
+    <div class="collapse navbar-collapse" id="navbarText">
+	   	<ul class="navbar-nav me-auto">
+        	<li class="nav-item">
+          		<a class="nav-link <%=currentPage.equals("cafe")? "active":"" %>" href="${pageContext.request.contextPath }/cafe/index.jsp">게시판</a>
+        	</li>
+        	<li class="nav-item">
+          		<a class="nav-link <%=currentPage.equals("file")? "active":"" %>" href="${pageContext.request.contextPath }/file/list.jsp">자료실</a>
+        	</li>
+      	</ul>
+      	<form class="d-flex">
+	        <input class="form-control me-2" type="search" placeholder="Search" >
+	        <button class="btn btn-info" type="submit">Search</button>
+      	</form>
+      	<span class="navbar-text ms-2">
+      		<%if(id != null) {%>
+				<p>
+					<a href="${pageContext.request.contextPath}/user/protected/info.jsp"><strong><%=id %></strong>님</a>
+					<a href="${pageContext.request.contextPath}/user/logout.jsp">로그아웃</a>
+				</p>
+			<%}else{ %>
+				<a href="${pageContext.request.contextPath}/user/loginform.jsp">로그인</a>
+			<%} %>
+      	</span>
+    </div>
+  </div>
+</nav>
