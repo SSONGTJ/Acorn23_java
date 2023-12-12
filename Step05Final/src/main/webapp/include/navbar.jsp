@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%
 	//어느 페이지에 포함되었는지 정보를 얻어오기
 	String currentPage=request.getParameter("current"); // "index" or "member" or "guest"
@@ -25,26 +26,23 @@
     <div class="collapse navbar-collapse" id="navbarText">
 	   	<ul class="navbar-nav me-auto">
         	<li class="nav-item">
+
           		<a class="nav-link <%=currentPage.equals("cafe")? "active":"" %>" href="${pageContext.request.contextPath }/cafe/index.jsp">게시판</a>
         	</li>
         	<li class="nav-item">
+        		
           		<a class="nav-link <%=currentPage.equals("file")? "active":"" %>" href="${pageContext.request.contextPath }/file/list.jsp">자료실</a>
         	</li>
       	</ul>
-      	<form class="d-flex">
-	        <input class="form-control me-2" type="search" placeholder="Search" >
-	        <button class="btn btn-info" type="submit">Search</button>
-      	</form>
-      	<span class="navbar-text ms-2">
+      	<div class="navbar-nav">
       		<%if(id != null) {%>
-				<p>
-					<a href="${pageContext.request.contextPath}/user/protected/info.jsp"><strong><%=id %></strong>님</a>
-					<a href="${pageContext.request.contextPath}/user/logout.jsp">로그아웃</a>
-				</p>
-			<%}else{ %>
-				<a href="${pageContext.request.contextPath}/user/loginform.jsp">로그인</a>
-			<%} %>
-      	</span>
+      		<a class="nav-link" href="${pageContext.request.contextPath}/user/protected/info.jsp"><strong><%=id %></strong>님 ㅎㅇ</a>
+      		<a class="nav-link" href="${pageContext.request.contextPath}/user/logout.jsp">로그아웃</a>
+      		<%}else{ %>
+      		<a class="nav-link" href="${pageContext.request.contextPath}/user/loginform.jsp" class="nav-link">로그인</a>
+      		<a class="nav-link" href="${pageContext.request.contextPath}/user/signup_form.jsp" class="nav-link">회원가입</a>
+      		<%} %>
+      	</div>
     </div>
   </div>
 </nav>

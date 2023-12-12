@@ -56,103 +56,36 @@
 <head>
 <meta charset="UTF-8">
 <title>/file/list.jsp</title>
-<style>
-    body {
-        font-family: '맑은 고딕', 'Malgun Gothic', Arial, sans-serif;
-        background-color: #f4f4f4;
-        margin: 0;
-        padding: 0;
-    }
-
-    .container {
-        max-width: 800px;
-        margin: 20px auto;
-        background-color: #fff;
-        padding: 20px;
-        border-radius: 5px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    }
-
-    a {
-        color: #007bff;
-        text-decoration: none;
-    }
-
-    h1 {
-        color: #333;
-    }
-
-    table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-top: 20px;
-    }
-
-    th, td {
-        border: 1px solid #ddd;
-        padding: 10px;
-        text-align: left;
-    }
-
-    th {
-        background-color: #f2f2f2;
-    }
-
-    tbody tr:hover {
-        background-color: #f5f5f5;
-    }
-
-    .page-list {
-        margin: 0;
-        padding: 0;
-        list-style-type: none;
-        text-align: center;
-        margin-top: 20px;
-    }
-
-    .page-list li {
-        display: inline-block;
-        margin: 5px;
-        padding: 8px 12px;
-        background-color: #007bff;
-        color: #fff;
-        border-radius: 3px;
-        cursor: pointer;
-    }
-
-    .page-list li:hover {
-        background-color: #0056b3;
-    }
-
-    .page-list li.active {
-        background-color: #0056b3;
-        font-weight: bold;
-    }
-
-    .page-list li a {
-        color: #fff; /* 페이지 번호의 글자색을 흰색으로 설정 */
-        text-decoration: none;
-    }
-</style>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </head>
 <body>
-	
+	<%-- 
+		/include/navbar.jsp 포함시키기
+		피 포함되는 jsp 페이지에 파라미터를 전달할 수 있다.
+		아래 코드는 current 라는 파라미터 명으로 index 라는 문자열을 전달하는 것이다.
+		따라서, navbar.jsp 페이지에서는 해당 문자열을 아래와 같이 추출할 수 있다.
+		String result = request.getParameter("current"); // "index"
+	--%>
+	<jsp:include page="/include/navbar.jsp">
+		<jsp:param value="file" name="current"/>
+	</jsp:include>
 	<div class="container">
-		<a href="${pageContext.request.contextPath}/file/protected/upload_form.jsp">업로드 하러 가기</a>
+		<a class="btn btn-outline-primary mb-2" href="${pageContext.request.contextPath}/file/protected/upload_form.jsp">업로드 하러 가기</a>
 		<br />
-		<a href="${pageContext.request.contextPath}/">홈으로 가기</a>
-		<h1>자료실 목록입니다</h1>
+		<a class="btn btn-outline-success mb-2" href="${pageContext.request.contextPath}/">홈으로 가기</a>
+		<h1 class="mb-4">자료실 목록입니다</h1>
 		<h4>전체 글 수 : <%=mCount %> 개</h4>
-		<table>
+		<table class="table table-striped mt-3">
 			<thead>
 				<tr>
-					<th>번호</th>
-					<th>작성자</th>
-					<th>제목</th>
-					<th>파일명</th>
-					<th>크기 (byte)</th>
-					<th>등록일</th>
-					<th>삭제</th>
+					<th class="col">번호</th>
+					<th class="col">작성자</th>
+					<th class="col">제목</th>
+					<th class="col">파일명</th>
+					<th class="col">크기 (byte)</th>
+					<th class="col">등록일</th>
+					<th class="col">삭제</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -183,19 +116,19 @@
 				startPageNum 이 1인 아닌 경우에만 Prev 링크를 제공한다
 			 -->
 			 <%if(startPageNum != 1) {%>
-			 	<li>
-			 		<a href="list.jsp?pageNum=<%=startPageNum-1 %>">Prev</a>
+			 	<li class="page-item">
+			 		<a class="page-link" href="list.jsp?pageNum=<%=startPageNum-1 %>">Prev</a>
 			 	</li>
 			 <%} %>
 			 
 			<%for(int i=startPageNum; i<=endPageNum; i++){ %>
 				<%if(i == pageNum){ %>
 					<li class="active">
-						<a href="list.jsp?pageNum=<%=i %>"><%=i %></a>
+						<a class="page-link" href="list.jsp?pageNum=<%=i %>"><%=i %></a>
 					</li>
 				<%}else{ %>
-					<li>
-						<a href="list.jsp?pageNum=<%=i %>"><%=i %></a>
+					<li class="page-item">
+						<a class="page-link" href="list.jsp?pageNum=<%=i %>"><%=i %></a>
 					</li>
 				<%} %>	
 			<%} %>
@@ -203,8 +136,8 @@
 				마지막 페이지 번호가 전체 페이지의 갯수보다 작으면 Next 링크를 제공한다.
 			 -->
 			<%if(endPageNum < totalPageCount) {%>
-			 	<li>
-			 		<a href="list.jsp?pageNum=<%=endPageNum+1 %>">Next</a>
+			 	<li class="page-item">
+			 		<a class="page-link" href="list.jsp?pageNum=<%=endPageNum+1 %>">Next</a>
 			 	</li>
 			 <%} %>
 		</ul>

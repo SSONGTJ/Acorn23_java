@@ -58,10 +58,15 @@
 </head>
 <body>
 		<%if(isLoginSuccess){%>
-			<p>
+			<!-- <p>
 				<strong><%=dto.getId() %></strong> 님 로그인 되었습니다.
 				<a href="<%=url %>">확인</a>
-			</p>
+			</p> -->
+			<script>
+				alert("<%=dto.getId() %> 님 로그인 되었습니다.");
+				//javascript 로 페이지 이동 시키기
+				location.href="<%=url %>"; // 이 경우엔 /Step05Final 이다.
+			</script>
 		<%}else{%>
 			<p>
 				아이디 혹은 비밀번호가 틀려요
