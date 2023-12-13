@@ -4,8 +4,11 @@
 <%
 	//어느 페이지에 포함되었는지 정보를 얻어오기
 	String currentPage=request.getParameter("current"); // "index" or "member" or "guest"
+	// EL로 가져오면 ${param.current }
+	
 	// id 가져옴
 	String id = (String)session.getAttribute("id");
+	// EL 로 가져오면 ${sessionScope.id} => 이걸 줄이면 ${id}
 %>
 
 <!-- 
@@ -26,22 +29,41 @@
     <div class="collapse navbar-collapse" id="navbarText">
 	   	<ul class="navbar-nav me-auto">
         	<li class="nav-item">
-
-          		<a class="nav-link <%=currentPage.equals("cafe")? "active":"" %>" href="${pageContext.request.contextPath }/cafe/index.jsp">게시판</a>
+        	<%-- 
+        		<a class="nav-link <%=currentPage.equals("cafe")? "active":"" %>" href="${pageContext.request.contextPath }/cafe/index.jsp">게시판</a>
+        	 --%>
+          		<a class="nav-link ${param.current eq 'cafe' ? 'active':'' }" href="${pageContext.request.contextPath }/cafe/index.jsp">게시판</a>
         	</li>
         	<li class="nav-item">
-        		
-          		<a class="nav-link <%=currentPage.equals("file")? "active":"" %>" href="${pageContext.request.contextPath }/file/list.jsp">자료실</a>
+        	<%-- 
+        		<a class="nav-link <%=currentPage.equals("file")? "active":"" %>" href="${pageContext.request.contextPath }/file/list.jsp">자료실</a>
+        	 --%>
+          		<a class="nav-link ${param.current eq 'file' ? 'active':'' }" href="${pageContext.request.contextPath }/file/list.jsp">자료실</a>
         	</li>
       	</ul>
+      	<%-- 
+	      	<div class="navbar-nav">
+	      		<%if(id != null) {%>
+	      		<a class="nav-link" href="${pageContext.request.contextPath}/user/protected/info.jsp"><strong><%=id %></strong>님 ㅎㅇ</a>
+	      		<a class="nav-link" href="${pageContext.request.contextPath}/user/logout.jsp">로그아웃</a>
+	      		<%}else{ %>
+	      		<a class="nav-link" href="${pageContext.request.contextPath}/user/loginform.jsp" class="nav-link">로그인</a>
+	      		<a class="nav-link" href="${pageContext.request.contextPath}/user/signup_form.jsp" class="nav-link">회원가입</a>
+	      		<%} %>
+	      	</div>
+      	 --%>
+      	
       	<div class="navbar-nav">
-      		<%if(id != null) {%>
-      		<a class="nav-link" href="${pageContext.request.contextPath}/user/protected/info.jsp"><strong><%=id %></strong>님 ㅎㅇ</a>
-      		<a class="nav-link" href="${pageContext.request.contextPath}/user/logout.jsp">로그아웃</a>
-      		<%}else{ %>
-      		<a class="nav-link" href="${pageContext.request.contextPath}/user/loginform.jsp" class="nav-link">로그인</a>
-      		<a class="nav-link" href="${pageContext.request.contextPath}/user/signup_form.jsp" class="nav-link">회원가입</a>
-      		<%} %>
+      		<c:choose>
+      			<c:when test="${not empty id}">
+	      			<a class="nav-link" href="${pageContext.request.contextPath}/user/protected/info.jsp"><strong>${id }</strong>님 ㅎㅇ</a>
+	      			<a class="nav-link" href="${pageContext.request.contextPath}/user/logout.jsp">로그아웃</a>
+      			</c:when>
+      			<c:otherwise>
+      				<a class="nav-link" href="${pageContext.request.contextPath}/user/loginform.jsp" class="nav-link">로그인</a>
+      				<a class="nav-link" href="${pageContext.request.contextPath}/user/signup_form.jsp" class="nav-link">회원가입</a>
+      			</c:otherwise>
+      		</c:choose>
       	</div>
     </div>
   </div>
