@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<div class="container">
+		<p>
+			<strong th:text="${param.id}"></strong> 상품
+			<strong th:text="${param.amount}"></strong> 개를 주문했어
+		</p>
+		<p>
+			<strong>[[${param.id}]]</strong> 상품
+			<strong>[[${param.amount}]]</strong> 개를 주문했어
+		</p>
+	</div>
+</body>
+</html>

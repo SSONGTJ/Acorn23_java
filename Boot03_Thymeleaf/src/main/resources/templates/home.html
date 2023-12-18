@@ -3,6 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<!--/* bootstrap css 로딩하기 */-->
+<link rel="stylesheet" th:href="@{/css/bootstrap.css}" />
+<!--/* bootstrap js 로딩하기 */-->
+<script th:src="@{/js/bootstrap.js}"></script>
 </head>
 <body>
 	<div class="container">
@@ -10,6 +14,26 @@
 		<p>
 			오늘의 운세 : <strong th:text="${fortuneToday}"></strong>
 		</p>
+		<p>
+			오늘의 운세 : <strong>[[${fortuneToday}]]</strong>
+		</p>
+		<p>
+			<strong>[[${session.id}]]</strong>님 ㅎㅇ?
+		</p>
+		<ul>
+			<li><a th:href="@{/sub/play}">놀러가기</a></li>
+			<!-- Thymeleaf에서 문자열은 single 따옴표를 이용해서 만들면 된다. -->
+			<li><a th:href="'/boot03/shop/buy?id=abc111&amount=2'">abc111 상품 2개 구매하기</a></li>
+			<li><a th:href="@{/shop/buy?id=abc111&amount=2}">abc111 상품 2개 구매하기</a></li>
+			<li><a th:href="@{'/shop/buy?id='+${id}+'&amount='+${amount}}">abc111 상품 2개 구매하기</a></li>
+		</ul>
+		<!-- html 주석 입니다 -->
+		<!--/*
+			주석 입니다 (타임리프에서 요 안에 쓰면 소스보기에도 안보여진다.)
+			클라이언트에게 출력되지 않음.
+		*/-->
+		<img src="/boot03/images/kim1.png"/>
+		<img th:src="@{/images/kim1.png}"/>
 	</div>
 </body>
 </html>
