@@ -10,10 +10,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class HomeController {
-	@GetMapping("/home")
+	@GetMapping("/")
 	public String home(Model model, HttpSession session) {
 		// Model 객체에 담은 데이터는 request 영역에 담긴다.
 		model.addAttribute("fortuneToday", "동쪽으로 가면 귀인을 만나요!");
+		
+		//테스트를 위해 Model 객체에 추가 정보 담기
+		model.addAttribute("id", "abc111");
+		model.addAttribute("amount",2);
+		
+		//경로 파라미터 테스트를 위한 정보 담기
+		model.addAttribute("num",999);
 		
 		// session 영역에 id라는 키값으로 kimgura 담기
 		session.setAttribute("id", "kimgura");

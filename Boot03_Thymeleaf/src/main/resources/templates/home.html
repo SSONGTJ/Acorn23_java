@@ -26,6 +26,12 @@
 			<li><a th:href="'/boot03/shop/buy?id=abc111&amount=2'">abc111 상품 2개 구매하기</a></li>
 			<li><a th:href="@{/shop/buy?id=abc111&amount=2}">abc111 상품 2개 구매하기</a></li>
 			<li><a th:href="@{'/shop/buy?id='+${id}+'&amount='+${amount}}">abc111 상품 2개 구매하기</a></li>
+			
+			<li><a th:href="@{/shop/buy(id=${id}, amount=${amount})}">abc111 상품 2개 구매하기</a></li>
+			<li><a th:href="@{/posts/{num}(num=${num})}">경로 파라미터 테스트</a></li>
+			<li><a th:href="@{/member}">회원 정보 보기</a></li>
+			<li><a th:href="@{/notice}">공지사항 보기</a></li>
+			<li><a th:href="@{/members}">회원 목록 보기</a></li>
 		</ul>
 		<!-- html 주석 입니다 -->
 		<!--/*
