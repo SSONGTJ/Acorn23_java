@@ -13,6 +13,7 @@
 					<th>번호</th>
 					<th>이름</th>
 					<th>주소</th>
+					<th>삭제</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -20,6 +21,9 @@
 					<td>[[${item.num}]]</td>
 					<td>[[${item.name}]]</td>
 					<td>[[${item.addr}]]</td>
+					<td><a th:href="@{/member/delete(num=${item.num})}">삭제</a></td>
+					<!--/*pipe 문자를 마치 backtick `` 처럼 사용해서 문자열을 이어붙일 수 있다.*/-->
+					<td><a th:href="@{|/member/delete?num=${item.num}|}">삭제</a></td>
 				</tr>
 			</tbody>
 		</table>

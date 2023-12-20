@@ -10,9 +10,32 @@ import org.springframework.web.bind.annotation.GetMapping;
 import com.example.boot03.dto.MemberDto;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class TestController {
+	
+	@GetMapping("/inc")
+	public String inc() {
+		return "sub/inc";
+	}
+	
+	//가상의 로그인
+	@GetMapping("/user/login")
+	public String login(HttpSession session) {
+		session.setAttribute("id", "kimgura");
+		return "sub/login";
+	}
+	
+	// 가상의 로그아웃
+	@GetMapping("/user/logout")
+	public String logout(HttpSession session) {
+		// 세션 초기화
+		session.invalidate();
+		//최상위 경로로 리다이렉트 이동
+		return "redirect:/";
+	}
+	
 	@GetMapping("/members")
 	public String members(HttpServletRequest request) {
 		MemberDto dto1 = new MemberDto(1,"김구라", "노량진");
