@@ -15,6 +15,15 @@ import jakarta.servlet.http.HttpSession;
 @Controller
 public class TestController {
 	
+	@GetMapping("/escape_test")
+	public String escape(Model model) {
+		// 모델이 마크업 형식의 문자열일 수도 있다.
+		model.addAttribute("markup", "<a href='https://daum.net'>daum</a>");
+		// url 정보를 테스트로 담기
+		model.addAttribute("url", "/boot03/shop/buy?id=111&amount=2");
+		return "sub/escape_test";
+	}
+	
 	@GetMapping("/inc")
 	public String inc() {
 		return "sub/inc";

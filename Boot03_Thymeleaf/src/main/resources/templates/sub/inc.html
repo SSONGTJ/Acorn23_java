@@ -17,5 +17,14 @@
 	
 	<!-- replace 하면 이 div 를 대체해서 include 된 내용이 들어간다. -->
 	<div th:replace="~{/include/footer :: one}"></div>
+	
+	<!-- replace 하면 이 div 를 대체해서 include 된 내용이 들어간다. -->
+	<div th:replace="~{/include/footer :: two}"></div>
+	
+	<!-- replace 하면 이 div 를 대체해서 include 된 내용이 들어간다. -->
+	<div th:replace="~{/include/footer :: myFooter('hi footer')}"></div>
+	
+	<!-- replace 하면 이 div 를 대체해서 include 된 내용이 들어간다. -->
+	<div th:replace="~{/include/footer2}"></div>
 </body>
 </html>
