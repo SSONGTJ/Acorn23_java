@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>/member/list.html</title>
+</head>
+<body>
+	<div class="container">
+		<h3>회원 목록</h3>
+		<h4><a th:href="@{/member/insertform}">회원 추가</a></h4>
+		<table>
+			<thead>
+				<tr>
+					<th>번호</th>
+					<th>이름</th>
+					<th>주소</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="tmp : ${list}">
+					<td th:text="${tmp.num}"></td>
+					<td th:text="${tmp.name}"></td>
+					<td>[[${tmp.addr}]]</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>

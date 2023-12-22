@@ -10,10 +10,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class HomeController {
 	
-	@GetMapping("/member/list")
-	public String member() {
-		return "";
-	}
 	@GetMapping("/")
 	public String home(Model model) {
 		// 공지사항
