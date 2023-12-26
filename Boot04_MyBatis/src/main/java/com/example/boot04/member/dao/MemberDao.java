@@ -18,7 +18,30 @@ public class MemberDao {
 	@Autowired
 	SqlSession session;
 	
+	public void update(MemberDto dto) {
+		session.update("member.update", dto);
+	}
+	
+	public MemberDto getData(int num) {
+		/*
+		 * 	mapper 의 namespace => member
+		 *  sql 의 id => getData
+		 *  parameteType => int
+		 *  resultType => MemberDto type
+		 */
+		return session.selectOne("member.getData", num);
+	}
+	
+	public void delete(int num) {
+		session.delete("member.delete", num);
+	}
+	
 	public void insert(MemberDto dto) {
+		/*
+		 *	mapper 의 namespace => member
+		 *	sql 의 id => insert
+		 *	parameterType => MemberDto 
+		 */
 		session.insert("member.insert", dto);
 	}
 	
