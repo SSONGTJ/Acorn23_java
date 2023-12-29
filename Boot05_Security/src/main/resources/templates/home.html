@@ -8,6 +8,7 @@
 	<div class="container">
 		<div sec:authorize="isAuthenticated()">
 			<i><strong sec:authentication="name"></strong></i> 님 로그인 중
+			<a th:href="@{/user/logout}">로그아웃</a>
 		</div>
 		<div sec:authorize="!isAuthenticated()">
 			<i>로그인 중이 아님</i>
