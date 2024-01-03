@@ -18,7 +18,7 @@ public class SecurityConfig {
 	@Bean //메소드에서 리턴되는 SecurityFilterChain 을 bean으로 만들어준다.
 	public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception{
 		//화이트 리스트를 미리 배열에 넣어두기
-		String[] whiteList = {"/","/play","/notice","/user/loginform","/user/login_fail"};
+		String[] whiteList = {"/","/play","/notice","/user/loginform","/user/login_fail","/user/expired"};
 		
 		//메소드의 매개변수에 HttpSecurity 의 참조값이 전달되는데 해당 객체를 이용해서 설정을 한다음
 		httpSecurity
@@ -32,12 +32,15 @@ public class SecurityConfig {
 		)
 		.formLogin(config ->
 		config
+			//인증을 거치지 않은 사용자를 리다이렉트 시킬 경로 설정
+			.loginPage("/user/required_loginform")
 			//로그인 처리를 할 때 요청될 URL 설정 ( spring security 가 login 처리를 대신 해준다. )
 			.loginProcessingUrl("/user/login")
 			//로그인 처리를 대신 하려면 어떤 파라미터명으로 username 과 password 가 넘어오는지 알려주기
 			.usernameParameter("userName")
 			.passwordParameter("password")
-			.successForwardUrl("/user/login_success")// 로그인 성공 후 forward 될 url 설정
+			.successHandler(new AuthSuccessHandler()) // 로그인 성공 핸들러 등록
+			//.successForwardUrl("/user/login_success") // 로그인 성공 후 forward 될 url 설정
 			.failureForwardUrl("/user/login_fail")
 			.permitAll() // 위에 명시한 모든 요청경로를 로그인 없이 요청할 수 있도록 설정
 		)
@@ -46,6 +49,14 @@ public class SecurityConfig {
 			.logoutUrl("/user/logout")//spring security 가 logout 처리를 대신 해준다.
 			.logoutSuccessUrl("/") //로그아웃 이후에 리다이렉트 시킬 경로 설정
 			.permitAll()
+		)
+		.exceptionHandling(config ->
+		config.accessDeniedPage("/user/denied")
+		)
+		.sessionManagement(config ->
+		config
+			.maximumSessions(1) //최대 허용 세션 개수
+			.expiredUrl("/user/expired") // 허용 세션 수가 넘어서 로그인이 해제된 경우 리다이렉트 이동시킬 경로
 		);
 		//설정된 정보대로 SecurityFilterChain 객체를 만들어서 반환한다.
 		return httpSecurity.build();
@@ -56,7 +67,7 @@ public class SecurityConfig {
 	PasswordEncoder passwordEncoder() { 
 		return new BCryptPasswordEncoder();
 	}
-	//인증 메니저 객체를 bean 으로 만든다. (Spring Security 가 자동 로그인 처리할때도 사용되는 객체)
+	//인증 매니저 객체를 bean 으로 만든다. (Spring Security 가 자동 로그인 처리할때도 사용되는 객체)
 	@Bean
 	AuthenticationManager authenticationManager(HttpSecurity http, 
 			BCryptPasswordEncoder bCryptPasswordEncoder, UserDetailsService userDetailService) throws Exception {
