@@ -22,3 +22,22 @@ CREATE TABLE board_gallery(
 CREATE SEQUENCE board_gallery_seq;
 
 SELECT * FROM board_gallery;
+
+-- LAG (칼럼명, 칸 수, 존재하지 않을 시 기본값) OVER (정렬 조건)
+SELECT num, writer, caption, -- 실행 순서 2
+	LAG(num, 1, 0) OVER (ORDER BY num DESC) as PrevNum,
+	LEAD(num, 1, 0) OVER (ORDER BY num DESC) as NextNum
+FROM board_gallery -- 실행 순서 1
+ORDER BY num DESC; -- 실행 순서 3
+
+
+SELECT * FROM
+	(
+		SELECT num, writer, caption,
+			LAG(num, 1, 0) OVER (ORDER BY num DESC) as PrevNum,
+			LEAD(num, 1, 0) OVER (ORDER BY num DESC) as NextNum
+		FROM board_gallery
+		ORDER BY num DESC
+	)
+WHERE num = 5;
+
