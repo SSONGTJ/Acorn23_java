@@ -41,3 +41,4 @@ SELECT * FROM
 	)
 WHERE num = 5;
 
+SELECT * FROM board_cafe;
