@@ -26,8 +26,9 @@ public class CafeDaoImpl implements CafeDao{
 		return list;
 	}
 	@Override
-	public int getCount() {
-		return session.selectOne("cafe.getCount");
+	public int getCount(CafeDto dto) {
+		//검색 키워드가 있다면 검색 키워드에 맞는 글의 개수만 가져올 수 있도록 파라미터로 CafeDto 를 전달한다.
+		return session.selectOne("cafe.getCount", dto);
 	}
 	@Override
 	public void insert(CafeDto dto) {

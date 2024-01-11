@@ -22,9 +22,9 @@ public class CafeServiceImpl implements CafeService{
 	final int PAGE_DISPLAY_COUNT=10;
 			
 	@Override
-	public void getList(Model model, int pageNum) {
+	public void getList(Model model, CafeDto dto) {
 		// pageNum 에 해당하는 글 정보를 select 에서 Model  객체에 담는 작업을 하면 된다.
-		
+		int pageNum = dto.getPageNum();
 		//보여줄 페이지의 시작 ROWNUM
 		int startRowNum=1+(pageNum-1)*PAGE_ROW_COUNT;
 		//보여줄 페이지의 끝 ROWNUM
@@ -35,7 +35,7 @@ public class CafeServiceImpl implements CafeService{
 		//하단 끝 페이지 번호
 		int endPageNum=startPageNum+PAGE_DISPLAY_COUNT-1;
 		//전체 글의 갯수
-		int totalRow=cafeDao.getCount();
+		int totalRow=cafeDao.getCount(dto);
 		//전체 페이지의 갯수 구하기
 		int totalPageCount=(int)Math.ceil(totalRow/(double)PAGE_ROW_COUNT);
 		//끝 페이지 번호가 이미 전체 페이지 갯수보다 크게 계산되었다면 잘못된 값이다.
@@ -43,7 +43,7 @@ public class CafeServiceImpl implements CafeService{
 			endPageNum=totalPageCount; //보정해 준다. 
 		}
 		
-		CafeDto dto = new CafeDto();
+		//위에서 계산된 startRowNum 과 endRowNum 을 dto에 담고
 		dto.setStartRowNum(startRowNum);
 		dto.setEndRowNum(endRowNum);
 		
@@ -53,7 +53,10 @@ public class CafeServiceImpl implements CafeService{
 		model.addAttribute("list",list);
 		model.addAttribute("startPageNum", startPageNum);
 		model.addAttribute("endPageNum", endPageNum);
-		model.addAttribute("totalRow",totalRow);
+		model.addAttribute("totalPageCount", totalPageCount);
+		model.addAttribute("pageNum", pageNum);
+		model.addAttribute("totalRow", totalRow);
+		model.addAttribute("dto", dto);
 		
 	}
 	

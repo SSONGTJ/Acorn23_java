@@ -1,10 +1,16 @@
+DROP TABLE user_tbl;
+
 CREATE TABLE user_tbl(
 	id NUMBER PRIMARY KEY,
 	userName VARCHAR2(20) UNIQUE,
 	password VARCHAR2(100) NOT NULL,
 	email VARCHAR2(100) UNIQUE,
-	role VARCHAR2(10) NOT NULL
+	role VARCHAR2(10) NOT NULL,
+	profile VARCHAR2(100),
+	regdate DATE
 );
+
+DROP SEQUENCE user_seq;
 
 CREATE SEQUENCE user_seq;
 

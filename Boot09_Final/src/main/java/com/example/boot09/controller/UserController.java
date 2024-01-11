@@ -1,13 +1,12 @@
 package com.example.boot09.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.example.boot09.dto.UserDto;
-import com.example.boot09.repository.UserDao;
 import com.example.boot09.service.UserService;
 
 @Controller
@@ -15,6 +14,18 @@ public class UserController {
 	// util 역활을 하는 서비스 객체를 인터페이스 type 으로 DI 받아서 사용한다 
 	@Autowired
 	private UserService service;
+	
+	@GetMapping("/user/updateform")
+	public String updateForm(Model model) {
+		service.getInfo(model);
+		return "user/updateform";
+	}
+	//개인정보 보기 요청 처리
+	@GetMapping("/user/info")
+	public String info(Model model) {
+		service.getInfo(model);
+		return "user/info";
+	}
 	
 	//회원 가입 요청처리
 	@PostMapping("/user/signup")

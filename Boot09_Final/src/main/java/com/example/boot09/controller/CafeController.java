@@ -5,7 +5,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.boot09.dto.CafeDto;
 import com.example.boot09.service.CafeService;
@@ -51,8 +50,9 @@ public class CafeController {
 	}
 	
 	@GetMapping("/cafe/list")
-	public String list(Model model, @RequestParam(defaultValue = "1") int pageNum) {
-		service.getList(model, pageNum);
+	public String list(Model model, CafeDto dto) {
+		//dto 에는 검색키워드가 있을 수도 있고, 없을 수도 있다.
+		service.getList(model, dto);
 		return "cafe/list";
 	}
 }

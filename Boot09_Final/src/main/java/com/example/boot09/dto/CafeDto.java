@@ -23,6 +23,7 @@ public class CafeDto {
 	private int startRowNum;
 	private int endRowNum;
 	//검색기능 관련 추가 필드
-	private String condition;
-	private String keyword;
+	private String condition="";
+	private String keyword="";
+	private int pageNum=1;
 }

@@ -37,6 +37,11 @@ public class CustomUserDetailsService implements UserDetailsService{
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		//1. form 에 입력한 userName 을 이용해서 사용자의 자세한 정보를 얻어온다.
 		UserDto dto = dao.getData(username);
+		//만일 저장된 userName 이 없다면
+		if(dto==null) {
+			//예외를 발생시킨다.
+			throw new UsernameNotFoundException("존재하지 않는 사용자 입니다.");
+		}
 		
 		//2. UserDetails 객체에 해당정보를 담아서 리턴해 주어야 한다
 		//권한은 1개 이지만 List 에 담아서 
