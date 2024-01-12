@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>/file/list.html</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</head>
+<body>
+	<div class="container">
+		<h3>과제</h3>
+		<p>[자료실 기능을 구현해보세요.] <br />
+			1. 파일 업로드 기능 V<br />
+			2. 파일 목록보기 기능 V<br />
+			3. 파일 다운로드 기능 V<br />
+			4. 자신이 올린 파일인 경우 삭제 할 수 있는 기능 V<br />
+			5. 페이징 처리 <br />
+			
+			<br /><br />
+			여력이 된다면...<br />
+			6. 검색 기능......<br />
+			 - 제목 + 파일명<br />
+			 - 제목<br />
+			 - 작성자<br />
+		</p>
+		
+		<h2>파일 자료실</h2>
+		<a class="btn btn-outline-success" th:href="@{/file/uploadform}">파일 업로드</a>
+		<a class="btn btn-outline-dark" th:href="@{/}">홈으로</a>
+		
+		<table class="table">
+			<thead>
+				<tr>
+					<th>번호</th>
+					<th>작성자</th>
+					<th>파일 제목</th>
+					<th>파일크기</th>
+					<th>등록일</th>
+					<th>다운로드</th>
+					<th>삭제</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="tmp : ${list}">
+					<td th:text="${tmp.num}"></td>
+					<td th:text="${tmp.writer}"></td>
+					<td>
+						<a th:href="@{/file/detail}" th:text="${tmp.title}"></a>
+					</td>
+					<td>[[${tmp.fileSize}]] byte</td>
+					<td th:text="${tmp.regdate}"></td>
+					<td>
+						<a th:href="@{/file/download(orgFileName=${tmp.orgFileName}, saveFileName=${tmp.saveFileName}, fileSize=${tmp.fileSize})}">다운로드</a>
+					</td>
+					<td>
+						<a th:href="@{/file/delete(num=${tmp.num})}">삭제</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>

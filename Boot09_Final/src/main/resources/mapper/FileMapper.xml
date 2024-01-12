@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="file">
+	<insert id="insert" parameterType="fileDto">
+		INSERT INTO file_list
+		(num, writer, title, orgFileName, saveFileName, fileSize, regdate)
+		VALUES(file_list_seq.NEXTVAL, #{writer}, #{title}, #{orgFileName}, #{saveFileName}, #{fileSize},SYSDATE)
+	</insert>
+	
+	<select id="getList" parameterType="fileDto" resultType="fileDto">
+		SELECT *
+		FROM
+			(SELECT result1.*, ROWNUM AS rnum
+			FROM
+				(SELECT num, writer, title, orgFileName, saveFileName, fileSize, regdate
+				FROM file_list
+				ORDER BY num DESC) result1)
+		WHERE rnum BETWEEN #{startRowNum} AND #{endRowNum}
+	</select>
+	
+	<select id="getData" parameterType="int" resultType="fileDto">
+		SELECT *
+		FROM
+			( SELECT num, writer, title, orgFileName, saveFileName, fileSize, regdate,
+				LAG(num, 1, 0) OVER (ORDER BY num DESC) AS prevNum,
+				LEAD(num, 1, 0) OVER (ORDER BY num DESC) AS nextNum			
+			FROM file_list
+			ORDER BY num DESC )
+		WHERE num=#{num}
+	</select>
+	
+	<select id="getCount" resultType="Integer">
+		SELECT NVL(MAX(ROWNUM), 0)
+		FROM file_list
+	</select>
+	
+	<delete id="delete" parameterType="int">
+		DELETE FROM file_list
+		WHERE num = #{num}
+	</delete>
+</mapper>

@@ -19,4 +19,6 @@ public class HomeController {
 		model.addAttribute("notice", notice);
 		return "home";
 	}
+	
+	
 }

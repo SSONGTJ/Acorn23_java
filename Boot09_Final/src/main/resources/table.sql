@@ -48,3 +48,21 @@ SELECT * FROM
 WHERE num = 5;
 
 SELECT * FROM board_cafe;
+
+
+CREATE TABLE file_list(
+	num NUMBER PRIMARY KEY,
+	writer VARCHAR2(100), -- 로그인된 userName 을 넣을예정
+	title VARCHAR2(100), -- 이미지 제목
+	orgFileName VARCHAR2(100),
+	saveFileName VARCHAR2(100), -- 업로드된 이미지의 이름
+	fileSize VARCHAR2(100),
+	regdate DATE
+);
+
+DROP TABLE file_list;
+CREATE SEQUENCE file_list_seq;
+
+SELECT * FROM file_list;
+
+DELETE file_list WHERE num=4;
