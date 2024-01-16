@@ -26,4 +26,6 @@ public class CafeDto {
 	private String condition="";
 	private String keyword="";
 	private int pageNum=1;
+	// 이전 글 과 다음 글의 글 번호를 담을 필드
+	private int prevNum, nextNum;
 }

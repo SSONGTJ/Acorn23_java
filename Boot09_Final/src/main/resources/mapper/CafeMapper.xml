@@ -45,8 +45,19 @@
 	</insert>
 	
 	<select id="getData" parameterType="int" resultType="cafeDto">
-		SELECT num, writer, title, content, viewCount, regdate
+		SELECT <include refid="column" />
 		FROM board_cafe
+		WHERE num = #{num}
+	</select>
+	
+	<select id="getDetail" parameterType="cafeDto" resultType="cafeDto">
+		SELECT *
+		FROM
+			(SELECT <include refid="column" />,
+				LAG(num, 1, 0) OVER (ORDER BY num DESC) AS prevNum,
+				LEAD(num, 1, 0) OVER (ORDER BY num DESC) AS nextNum
+			FROM board_cafe
+			<include refid="search" />) result1
 		WHERE num = #{num}
 	</select>
 	

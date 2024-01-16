@@ -39,6 +39,10 @@ public class CafeDaoImpl implements CafeDao{
 		return session.selectOne("cafe.getData", num);
 	}
 	@Override
+	public CafeDto getDetail(CafeDto dto) {
+		return session.selectOne("cafe.getDetail", dto);
+	}
+	@Override
 	public void delete(int num) {
 		session.delete("cafe.delete", num);
 	}
