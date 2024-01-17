@@ -15,15 +15,18 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import jakarta.servlet.http.HttpServletRequest;
+import lombok.extern.slf4j.Slf4j;
+
 
 /*
- * 	이 컨트롤러가 정상동작 하기 위해서는
+ * 	이 컨트롤러가 정상동작 하기 위해서는 
  * 
- * 	SmartEditor 폴더를 static 폴더에 붙여넣기 하고
+ *  SmartEditor 폴더를 static 폴더에 붙여 넣기 하고 
  * 
  *  SmartEditor/photo_uploader/popup/attach_photo.js  에 있는 코드를
  *  
@@ -37,13 +40,13 @@ import jakarta.servlet.http.HttpServletRequest;
     	
     	//sUploadURL= 'file_uploader_html5.jsp'; 	//upload URL
     	//jsp 페이지에 요청하던 요청경로를 SmartEditorController 에 요청을 하도록 수정한다.
-    	
     	sUploadURL="/boot09/editor_upload";
     	
-    여기서 /boot07 은  context path 이기 때문에 상황에 맞게 변경해야 한다. 
+    여기서 /boot09 는  context path 이기 때문에 상황에 맞게 변경해야 한다. 
  *  
  */
 
+@Slf4j
 @Controller
 public class SmartEditorController {
 	
@@ -52,9 +55,12 @@ public class SmartEditorController {
 	private String fileLocation; 
 	
 	//ajax 업로드 요청에 대해 응답을 하는 컨트롤러 메소드
-	@RequestMapping("/editor_upload")
+	@PostMapping("/editor_upload")
 	@ResponseBody
 	public String upload(HttpServletRequest request) throws IOException {
+		
+		log.info("/editor_upload 가 요청됨!");
+		
 	    //파일정보
 	    String sFileInfo = "";
 	    //파일명을 받는다 - 일반 원본파일명
@@ -131,6 +137,8 @@ public class SmartEditorController {
 	)
 	@ResponseBody
 	public byte[] editorImage(@PathVariable("imageName") String imageName) throws IOException {
+		
+		log.info(imageName+" 이미지를 응답합니다");
 		
 		String absolutePath=fileLocation+File.separator+imageName;
 		//파일에서 읽어들일 InputStream

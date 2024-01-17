@@ -21,10 +21,15 @@ public class SecurityConfig {
 		String[] whiteList= {"/", "/user/signup_form", "/user/signup", 
 				"/user/loginform", "/user/login_fail", "/user/expired",
 				"/gallery/list", "/gallery/detail", "/upload/images/**",
-				"/cafe/list","/cafe/detail","/file/list","/file/download"};
+				"/cafe/list", "/cafe/detail",
+				"/file/list", "/file/download"};
 		
 		//메소드의 매개변수에 HttpSecurity 의 참조값이 전달되는데 해당 객체를 이용해서 설정을 한다음
 		httpSecurity
+		.headers(header->
+			//동일한 origin 에서 iframe 을 사용할수 있도록 설정(default 값은 사용불가)
+			header.frameOptions(option->option.sameOrigin()) //SmartEditor 에서 필요함
+		)
 		.csrf(csrf->csrf.disable())
 		.authorizeHttpRequests(config -> 
 			config

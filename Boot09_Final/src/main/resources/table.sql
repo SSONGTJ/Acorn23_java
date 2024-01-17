@@ -66,3 +66,5 @@ CREATE SEQUENCE file_list_seq;
 SELECT * FROM file_list;
 
 DELETE file_list WHERE num=4;
+
+select * from board_cafe order by num desc

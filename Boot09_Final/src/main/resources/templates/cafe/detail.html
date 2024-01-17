@@ -5,6 +5,12 @@
 <title>/cafe/detail.html</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+<style>
+	.content{
+		border-radius: 5px;
+		box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+	}
+</style>
 </head>
 <body>
 	<div class="container">
@@ -15,13 +21,13 @@
 		    <li class="breadcrumb-item active">Detail</li>
 		  </ol>
 		</nav>
-		<a th:if="${dto.prevNum ne 0}" th:href="@{/cafe/detail(num=${dto.prevNum}, condition=${dto.condition}, keyword=${dto.keyword})}">이전 글</a>
-		<a th:if="${dto.nextNum ne 0}" th:href="@{/cafe/detail(num=${dto.nextNum}, condition=${dto.condition}, keyword=${dto.keyword})}">다음 글</a>
+		
+		<a th:if="${dto.prevNum ne 0}" th:href="@{/cafe/detail(num=${dto.prevNum}, condition=${dto.condition}, keyword=${dto.keyword})}">이전글</a> 
+		<a th:if="${dto.nextNum ne 0}"  th:href="@{/cafe/detail(num=${dto.NextNum}, condition=${dto.condition}, keyword=${dto.keyword})}">다음글</a>
 		<p th:if="${not #strings.isEmpty(dto.keyword)}">
 			<strong>[[${dto.condition}]]</strong> 조건
-			<strong>[[${dto.keyword}]]</strong> 검색어로 검색된 내용 자세히 보기
+			<strong>[[${dto.keyword}]]</strong> 검색어로 검색된 내용 
 		</p>
-		
 		<h3>글 상세 보기</h3>
 		<table class="table table-bordered">
 			<tr>
@@ -44,13 +50,9 @@
 				<th>작성일</th>
 				<td th:text="${dto.regdate}"></td>
 			</tr>
-			<tr>
-				<td colspan="2">
-					<textarea class="form-control" cols="30" rows="10" th:text="${dto.content}" readonly></textarea>
-				</td>
-			</tr>
 		</table>
-		
+		<div class="content">[(${dto.content})]</div>
+		<div class="content" th:utext="${dto.content}"></div>
 		<th:block th:if="${dto.writer eq userName}">
 			<a class="btn btn-outline-success btn-sm" th:href="@{'/cafe/updateform?num=' + ${dto.num}}">수정</a>
 			<a class="btn btn-outline-danger btn-sm" href="javascript:" onclick="deleteConfirm()">삭제</a>
@@ -58,12 +60,17 @@
 				
 				let userName=[[${userName}]];
 				let dto=[[${dto}]];
-				let contextPath=[(@{/})];
+				let contextPath=[[@{/}]];
+				// 역슬레시 제거하기
+				contextPath = contextPath.replace("\\", "");
+				
+				let contextPath2="[(@{/})]";
 				
 				function deleteConfirm(){
+					
 					const isDelete=confirm("이 글을 삭제 하겠습니까?");
 					if(isDelete){
-						//javascript 를 이용해서 페이지 이동 시키기
+						//javascript 를 이용해서 페이지 이동 시키기 
 						location.href=contextPath+"cafe/delete?num=[[${dto.num}]]";
 					}
 				}
