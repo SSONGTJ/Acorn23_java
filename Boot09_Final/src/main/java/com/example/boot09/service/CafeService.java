@@ -13,4 +13,6 @@ public interface CafeService {
 	public void getData(Model model, int num); // 글 수정 폼을 출력하기 위한 기능
 	public void updateContent(CafeDto dto);
 	public void saveComment(CafeCommentDto dto);
+	public void deleteComment (int num);
+	public void updateComment (CafeCommentDto dto);
 }

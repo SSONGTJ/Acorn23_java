@@ -1,10 +1,14 @@
 package com.example.boot09.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.boot09.dto.CafeCommentDto;
 import com.example.boot09.dto.CafeDto;
@@ -13,6 +17,24 @@ import com.example.boot09.service.CafeService;
 @Controller
 public class CafeController {
 	@Autowired private CafeService service;
+	
+	@PostMapping("/cafe/comment_update")
+	public String commentUpdate(CafeCommentDto dto){
+		service.updateComment(dto);
+		return "redirect:/cafe/detail?num="+dto.getRef_group();
+	}
+	
+	@ResponseBody	//map 객체를 리턴하면 json 문자열이 응답되도록 @ResponseBody 어노테이션을 추가로 붙여준다.
+	@GetMapping("/cafe/comment_delete")
+	public Map<String, Object> commentDelete(int num){
+		// num은 GET 방식 파라미터로 전달되는 삭제할 댓글의 번호
+		service.deleteComment(num);
+		Map<String, Object> map = new HashMap<>();
+		map.put("isSuccess", true);
+		
+		return map;
+		
+	}
 	
 	@PostMapping("/cafe/comment_insert")
 	public String commentInsert(CafeCommentDto dto) {

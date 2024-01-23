@@ -28,5 +28,19 @@ public class CafeCommentDaoImpl implements CafeCommentDao {
 	public List<CafeCommentDto> getList(CafeCommentDto dto) {
 		return session.selectList("cafeComment.getList", dto);
 	}
+	@Override
+	public void delete(int num) {
+		session.update("cafeComment.delete", num);
+		
+	}
 	
+	@Override
+	public CafeCommentDto getData(int num) {
+		return session.selectOne("cafeComment.getData",num);
+	}
+	
+	@Override
+	public void update(CafeCommentDto dto) {
+		session.update("cafeComment.update", dto);	
+	}
 }
