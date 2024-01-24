@@ -18,10 +18,28 @@ import com.example.boot09.service.CafeService;
 public class CafeController {
 	@Autowired private CafeService service;
 	
+	@GetMapping("/cafe/comment_list")
+	public String commentList(Model model, CafeCommentDto dto) {
+		service.getCommentList(model, dto);
+		//templates/cafe/comment_list.html에서 댓글이 들어 있는 여러개의 li를 응답할 예정
+		return "cafe/comment_list";
+	}
+	
+//	@PostMapping("/cafe/comment_update")
+//	public String commentUpdate(CafeCommentDto dto){
+//		service.updateComment(dto);
+//		return "redirect:/cafe/detail?num="+dto.getRef_group();
+//	}
+	
+	@ResponseBody	//map 객체를 리턴하면 json 문자열이 응답되도록 @ResponseBody 어노테이션을 추가로 붙여준다.
 	@PostMapping("/cafe/comment_update")
-	public String commentUpdate(CafeCommentDto dto){
+	public Map<String, Object> commentUpdate(CafeCommentDto dto){
 		service.updateComment(dto);
-		return "redirect:/cafe/detail?num="+dto.getRef_group();
+		Map<String, Object> map = new HashMap<>();
+		map.put("isSuccess", true);
+		map.put("num", dto.getNum());
+		map.put("content", dto.getContent());		
+		return map;
 	}
 	
 	@ResponseBody	//map 객체를 리턴하면 json 문자열이 응답되도록 @ResponseBody 어노테이션을 추가로 붙여준다.

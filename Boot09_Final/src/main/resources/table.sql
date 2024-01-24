@@ -85,3 +85,8 @@ CREATE TABLE board_cafe_comment(
 CREATE SEQUENCE board_cafe_comment_seq;
 
 SELECT * FROM BOARD_CAFE_COMMENT;
+
+-- 댓글 복구
+UPDATE BOARD_CAFE_COMMENT
+SET deleted = 'no'
+WHERE num = 1;

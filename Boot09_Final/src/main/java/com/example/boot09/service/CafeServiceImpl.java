@@ -88,6 +88,23 @@ public class CafeServiceImpl implements CafeService{
 		//CafeDto에 ref_group 번호를 담아서 dao에 전달해서 댓글 목록을 얻어낸다.
 		CafeCommentDto commentDto = new CafeCommentDto();
 		commentDto.setRef_group(dto.getNum());
+		
+		//요청된 댓글의 페이지 번호
+		int pageNum = 1;
+		/*
+		 *  [ 댓글 페이징 처리에 관련된 로직 ]
+		 */
+		// 한 페이지에 댓글을 몇개씩 표시할 것인지
+		final int PAGE_ROW_COUNT=10;
+		
+		// 보여줄 페이지의 시작 ROWNUM
+		int startRowNum = 1+(pageNum-1)*PAGE_ROW_COUNT;
+		// 보여줄 페이지의 끝 ROWNUM
+		int endRowNum = pageNum*PAGE_ROW_COUNT;
+		// 계산된 값을 dto 에 담는다.
+		commentDto.setStartRowNum(startRowNum);
+		commentDto.setEndRowNum(endRowNum);
+		
 		//원글에 달린 댓글 목록 얻어내기
 		List<CafeCommentDto> commentList = commentDao.getList(commentDto);
 		
@@ -151,12 +168,38 @@ public class CafeServiceImpl implements CafeService{
 	@Override
 	public void updateComment(CafeCommentDto dto) {
 		String userName=SecurityContextHolder.getContext().getAuthentication().getName();
-		String writer = dto.getTarget_id();
+		String writer = commentDao.getData(dto.getNum()).getWriter();
 		if(!userName.equals(writer)) {
 			throw new NotOwnerException("당신 댓글이 아니여");
 		}
-		
-		//
+		//db적용
 		commentDao.update(dto);
+	}
+	
+	@Override
+	public void getCommentList(Model model, CafeCommentDto dto) {
+		//요청된 댓글의 페이지 번호
+		int pageNum = dto.getPageNum();
+		/*
+		 *  [ 댓글 페이징 처리에 관련된 로직 ]
+		 */
+		// 한 페이지에 댓글을 몇개씩 표시할 것인지
+		final int PAGE_ROW_COUNT=10;
+		
+		// 보여줄 페이지의 시작 ROWNUM
+		int startRowNum = 1+(pageNum-1)*PAGE_ROW_COUNT;
+		// 보여줄 페이지의 끝 ROWNUM
+		int endRowNum = pageNum*PAGE_ROW_COUNT;
+		// 계산된 값을 dto 에 담는다.
+		dto.setStartRowNum(startRowNum);
+		dto.setEndRowNum(endRowNum);
+		
+		//pageNum에 해당하는 댓글 목록만 select 되도록 한다.
+		List<CafeCommentDto> commentList=commentDao.getList(dto);
+		
+		//응답에 필요한 데이터를 Model 객체에 담는다.
+		model.addAttribute("commentList",commentList);
+		model.addAttribute("pageNum",pageNum);
+		model.addAttribute("ref",commentList);
 	}
 }

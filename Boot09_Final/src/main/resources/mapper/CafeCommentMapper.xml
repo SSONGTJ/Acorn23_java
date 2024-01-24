@@ -36,12 +36,17 @@
 	</select>
 	
 	<select id="getList" resultType="cafeCommentDto" parameterType="cafeCommentDto">
-		SELECT num, writer, content, target_id, ref_group, comment_group,
-				deleted, board_cafe_comment.regdate, profile
-		FROM board_cafe_comment
-		JOIN user_tbl
-		ON board_cafe_comment.writer = user_tbl.userName
-		WHERE ref_group=${ref_group}
-		ORDER BY comment_group ASC, num ASC
+		SELECT *
+		FROM
+			(SELECT result1.*, ROWNUM AS rnum
+			FROM
+				(SELECT num, writer, content, target_id, ref_group, comment_group,
+						deleted, board_cafe_comment.regdate, profile
+				FROM board_cafe_comment
+				JOIN user_tbl
+				ON board_cafe_comment.writer = user_tbl.userName
+				WHERE ref_group=${ref_group}
+				ORDER BY comment_group ASC, num ASC) result1)
+		WHERE rnum BETWEEN #{startRowNum} AND #{endRowNum}
 	</select>
 </mapper>
