@@ -20,7 +20,15 @@ public class CafeController {
 	
 	@GetMapping("/cafe/comment_list")
 	public String commentList(Model model, CafeCommentDto dto) {
+		//CafeCommentDto 에는 pageNum, ref_group 이 들어 있다 (GET 방식 파라미터)
 		service.getCommentList(model, dto);
+		
+		try {
+			Thread.sleep(3000);
+		} catch(InterruptedException e) {
+			e.printStackTrace();
+		}
+		
 		//templates/cafe/comment_list.html에서 댓글이 들어 있는 여러개의 li를 응답할 예정
 		return "cafe/comment_list";
 	}

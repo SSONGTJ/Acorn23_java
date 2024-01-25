@@ -15,15 +15,15 @@ import com.example.boot09.repository.CafeDao;
 
 @Service
 public class CafeServiceImpl implements CafeService{
-	@Autowired
-	private CafeDao cafeDao;
-	@Autowired
-	private CafeCommentDao commentDao;
-	
 	//한 페이지에 몇개씩 표시할 것인지
 	final int PAGE_ROW_COUNT=5;
 	//하단 페이지를 몇개씩 표시할 것인지?
 	final int PAGE_DISPLAY_COUNT=10;
+	
+	@Autowired
+	private CafeDao cafeDao;
+	@Autowired
+	private CafeCommentDao commentDao;
 			
 	@Override
 	public void getList(Model model, CafeDto dto) {
@@ -108,10 +108,16 @@ public class CafeServiceImpl implements CafeService{
 		//원글에 달린 댓글 목록 얻어내기
 		List<CafeCommentDto> commentList = commentDao.getList(commentDto);
 		
+		//원글의 글 번호를 이용해서 댓글 전체의 개수를 얻어낸다.
+		int totalRow = commentDao.getCount(dto.getNum());
+		//댓글 전체 페이지의 개수
+		int totalPageCount = (int)Math.ceil(totalRow/(double)PAGE_ROW_COUNT);
+		
 		//model 객체에 담아준다.
-		model.addAttribute("dto",resultDto);
-		model.addAttribute("userName",userName);
+		model.addAttribute("dto", resultDto);
+		model.addAttribute("userName", userName);
 		model.addAttribute("commentList", commentList);
+		model.addAttribute("totalPageCount", totalPageCount);
 	}
 	
 	@Override
@@ -198,8 +204,8 @@ public class CafeServiceImpl implements CafeService{
 		List<CafeCommentDto> commentList=commentDao.getList(dto);
 		
 		//응답에 필요한 데이터를 Model 객체에 담는다.
-		model.addAttribute("commentList",commentList);
-		model.addAttribute("pageNum",pageNum);
-		model.addAttribute("ref",commentList);
+		model.addAttribute("commentList",commentList);	// 댓글 목록
+		model.addAttribute("pageNum",pageNum);			// 페이지 번호
+		model.addAttribute("ref_group",dto.getRef_group());	// 원글의 번호
 	}
 }
